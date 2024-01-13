@@ -13,6 +13,19 @@ const useStyles = makeStyles()({
     homeTitle: {
         fontSize: '50px',
         color: '#ff9c34'
+    },
+    signIn: {
+        backgroundColor: '#ff9c34',
+        fontSize: '20px',
+        margin: '10px',
+        ":hover": {
+            backgroundColor: 'orangered'
+        }
+    },
+    signUp: {
+        color: '#ff9c34',
+        fontSize: '20px',
+        margin: '10px'
     }
 });
 
