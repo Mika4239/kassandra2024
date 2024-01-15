@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import useStyles from "./autonomousStyles";
 import { useState } from "react";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
+import NavigationButtons from "../../components/navigationButtons/navigationButtons";
 
 const AUTONOMOUS_TITLE = 'Autonomous';
 const SPEAKER_TITLE = 'Speaker';
@@ -72,6 +73,7 @@ const Autonomous: React.FC = () => {
             <Checkbox className={classes.ring6}/>
             <Checkbox className={classes.ring7}/>
             <Checkbox className={classes.ring8}/>
+            <NavigationButtons prevPath="select" nextPath="teleop"/>
         </div>
     );
 };
