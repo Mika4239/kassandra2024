@@ -3,12 +3,17 @@ import SelectFromData from "../../components/selectFromData/selectFromData";
 import useStyles from "./selectMatchStyles";
 import { getTBAData } from "../../utils/general";
 import { translateMatch, translateTeam } from "../../utils/translations";
+import Button from "@mui/material/Button/Button";
+import { NavLink } from "react-router-dom";
 
 const SELECT_TITLE = 'Select Match';
 
 const EVENT = "event";
 const MATCH = "match";
 const TEAM = "team";
+
+const START_BUTTON = 'Start';
+const AUTONOMOUS_PATH = 'autonomous';
 
 const SelectMatch: React.FC = () => {
     const { classes } = useStyles();
@@ -89,6 +94,9 @@ const SelectMatch: React.FC = () => {
                 setChosen={setTeam}
                 dataTranslate={translateTeam}
             />
+            <NavLink to={'/' + AUTONOMOUS_PATH}>
+                <Button variant='contained' className={classes.startButton}>{START_BUTTON}</Button>
+            </NavLink>
         </div>
     );
 };

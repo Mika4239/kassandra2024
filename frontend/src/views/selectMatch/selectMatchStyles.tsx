@@ -13,6 +13,13 @@ const useStyles = makeStyles()({
     mainTitle: {
         fontSize: '50px',
         color: '#ff9c34'
+    },
+    startButton: {
+        margin: '50px',
+        backgroundColor: 'green',
+        ':hover': {
+            backgroundColor: 'darkgreen'
+        }
     }
 });
 

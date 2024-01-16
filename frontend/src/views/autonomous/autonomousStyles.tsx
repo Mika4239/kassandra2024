@@ -93,6 +93,7 @@ const useStyles = makeStyles()({
         }
     },
     ring7: {
+        margin: '0px',
         position: 'relative',
         bottom: '370px',
         color: 'black',
@@ -101,6 +102,7 @@ const useStyles = makeStyles()({
         }
     },
     ring8: {
+        marginBottom: '-300px',
         position: 'relative',
         bottom: '360px',
         color: 'black',

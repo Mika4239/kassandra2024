@@ -3,6 +3,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import useStyles from "./teleopStyles";
 import { useState } from "react";
+import NavigationButtons from "../../components/navigationButtons/navigationButtons";
 
 const TELEOP_TITLE = 'Teleop';
 const SPEAKER_TITLE = 'Speaker';
@@ -10,6 +11,9 @@ const AMP_TITLE = 'Amp';
 
 const SUCCESS_TITLE = 'Success';
 const FAIL_TITLE = 'Fail';
+
+const PREV_PATH = 'autonomous';
+const NEXT_PATH = 'endgame';
 
 const Teleop: React.FC = () => {
     const { classes } = useStyles();
@@ -60,6 +64,7 @@ const Teleop: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <NavigationButtons prevPath={PREV_PATH} nextPath={NEXT_PATH}/>
         </div>
     );
 };

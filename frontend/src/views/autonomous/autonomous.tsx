@@ -14,6 +14,9 @@ const SUCCESS_TITLE = 'Success';
 const FAIL_TITLE = 'Fail';
 const RINGS_TITLE = 'Rings Collected';
 
+const PREV_PATH = 'select';
+const NEXT_PATH = 'teleop'
+
 const Autonomous: React.FC = () => {
     const { classes } = useStyles();
 
@@ -65,7 +68,7 @@ const Autonomous: React.FC = () => {
             </div>
             <h2 className={classes.subTitle}>{RINGS_TITLE}</h2>
             <img src="./field.png" className={classes.fieldImage}/>
-            <Checkbox color='primary' className={classes.ring1} sx={{color: 'black'}}/>
+            <Checkbox className={classes.ring1} sx={{color: 'black'}}/>
             <Checkbox className={classes.ring2}/>
             <Checkbox className={classes.ring3}/>
             <Checkbox className={classes.ring4}/>
@@ -73,7 +76,7 @@ const Autonomous: React.FC = () => {
             <Checkbox className={classes.ring6}/>
             <Checkbox className={classes.ring7}/>
             <Checkbox className={classes.ring8}/>
-            <NavigationButtons prevPath="select" nextPath="teleop"/>
+            <NavigationButtons prevPath={PREV_PATH} nextPath={NEXT_PATH}/>
         </div>
     );
 };
