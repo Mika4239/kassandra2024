@@ -3,6 +3,7 @@ import Home from "../views/home/home";
 import SelectMatch from "../views/selectMatch/selectMatch";
 import Autonomous from "../views/autonomous/autonomous";
 import Teleop from "../views/teleop/teleop";
+import Endgame from "../views/endgame/endgame";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     {
         path: '/teleop',
         Component: Teleop
+    },
+    {
+        path: '/endgame',
+        Component: Endgame
     }
 ]);
 
