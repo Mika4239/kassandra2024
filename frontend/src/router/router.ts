@@ -4,6 +4,7 @@ import SelectMatch from "../views/selectMatch/selectMatch";
 import Autonomous from "../views/autonomous/autonomous";
 import Teleop from "../views/teleop/teleop";
 import Endgame from "../views/endgame/endgame";
+import Comments from "../views/comments/comments";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
     {
         path: '/endgame',
         Component: Endgame
+    },
+    {
+        path: '/comments',
+        Component: Comments
     }
 ]);
 
