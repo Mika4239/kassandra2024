@@ -38,12 +38,18 @@ const useStyles = makeStyles()({
         borderRadius: '30px',
         padding: '10px'
     },
+    ringsCollected: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginBottom: '200px'
+    },
     fieldImage: {
         width: '700px'
     },
     ring1: {
         position: 'relative',
-        bottom: '255px',
+        bottom: '250px',
         right: '160px',
         color: 'black',
         '&.Mui-checked': {
@@ -52,7 +58,7 @@ const useStyles = makeStyles()({
     },
     ring2: {
         position: 'relative',
-        bottom: '255px',
+        bottom: '225px',
         right: '160px',
         color: 'black',
         '&.Mui-checked': {
@@ -61,7 +67,7 @@ const useStyles = makeStyles()({
     },
     ring3: {
         position: 'relative',
-        bottom: '255px',
+        bottom: '200px',
         right: '160px',
         color: 'black',
         '&.Mui-checked': {
@@ -70,7 +76,7 @@ const useStyles = makeStyles()({
     },
     ring4: {
         position: 'relative',
-        bottom: '400px',
+        bottom: '320px',
         color: 'black',
         '&.Mui-checked': {
             color: 'black'
@@ -78,7 +84,7 @@ const useStyles = makeStyles()({
     },
     ring5: {
         position: 'relative',
-        bottom: '390px',
+        bottom: '290px',
         color: 'black',
         '&.Mui-checked': {
             color: 'black'
@@ -86,7 +92,7 @@ const useStyles = makeStyles()({
     },
     ring6: {
         position: 'relative',
-        bottom: '380px',
+        bottom: '260px',
         color: 'black',
         '&.Mui-checked': {
             color: 'black'
@@ -95,7 +101,7 @@ const useStyles = makeStyles()({
     ring7: {
         margin: '0px',
         position: 'relative',
-        bottom: '370px',
+        bottom: '230px',
         color: 'black',
         '&.Mui-checked': {
             color: 'black'
@@ -104,7 +110,7 @@ const useStyles = makeStyles()({
     ring8: {
         marginBottom: '-300px',
         position: 'relative',
-        bottom: '360px',
+        bottom: '200px',
         color: 'black',
         '&.Mui-checked': {
             color: 'black'
