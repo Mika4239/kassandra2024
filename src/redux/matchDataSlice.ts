@@ -63,6 +63,12 @@ export const matchDataSlice = createSlice({
     setLeave: (state, action: PayloadAction<boolean>) => {
         state.autonomous.leave = action.payload;
     },
+    addRingCollected: (state, action: PayloadAction<number>) => {
+      state.autonomous.ringsCollected.push(action.payload);
+    },
+    removeRingcollected: (state, action: PayloadAction<number>) => {
+      state.autonomous.ringsCollected = state.autonomous.ringsCollected.filter((ring) => ring != action.payload)
+    },
     setAutonomousSpeakerSuccess: (state, action: PayloadAction<number>) => {
         state.autonomous.speaker.success = action.payload;
     },
@@ -106,6 +112,8 @@ export const {
   resetMatchData,
   setMatchTeam,
   setLeave,
+  addRingCollected,
+  removeRingcollected,
   setAutonomousSpeakerSuccess,
   setAutonomousSpeakerFail,
   setAutonomousAmpSuccess,

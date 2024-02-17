@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import matchDataReducer from "./matchDataSlice.js";
+import matchDataReducer from "./matchDataSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
@@ -10,7 +10,9 @@ const persistConfig = {
 };
 
 const store = configureStore({
-  reducer: persistReducer(persistConfig, matchDataReducer)  
+  reducer:  {
+    'matchData': persistReducer(persistConfig, matchDataReducer)
+  }
 });
 
 export type RootState = ReturnType<typeof store.getState>;

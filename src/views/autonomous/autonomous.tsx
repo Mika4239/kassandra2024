@@ -2,9 +2,19 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import useStyles from "./autonomousStyles";
-import { useState } from "react";
 import Checkbox from "@mui/joy/Checkbox/Checkbox";
 import NavigationButtons from "../../components/navigationButtons/navigationButtons";
+import { useAppSelector } from "../../redux/hooks";
+import {
+  setAutonomousAmpFail,
+  setAutonomousAmpSuccess,
+  setAutonomousSpeakerFail,
+  setAutonomousSpeakerSuccess,
+  addRingCollected,
+  removeRingcollected,
+  setLeave,
+} from "../../redux/matchDataSlice";
+import { useDispatch } from "react-redux";
 
 const AUTONOMOUS_TITLE = "Autonomous";
 const LEAVE_TITLE = "Leave";
@@ -21,16 +31,34 @@ const NEXT_PATH = "teleop";
 const Autonomous: React.FC = () => {
   const { classes } = useStyles();
 
-  const [speakerCountSuccess, setSpeakerCountSuccess] = useState<number>(0);
-  const [ampCountSuccess, setAmpCountSuccess] = useState<number>(0);
-  const [speakerCountFail, setSpeakerCountFail] = useState<number>(0);
-  const [ampCountFail, setAmpCountFail] = useState<number>(0);
+  const leave = useAppSelector((state) => state.matchData.autonomous.leave);
+  const speakerSuccess = useAppSelector(
+    (state) => state.matchData.autonomous.speaker.success
+  );
+  const speakerFail = useAppSelector(
+    (state) => state.matchData.autonomous.speaker.fail
+  );
+  const ampSuccess = useAppSelector(
+    (state) => state.matchData.autonomous.amp.success
+  );
+  const ampFail = useAppSelector(
+    (state) => state.matchData.autonomous.amp.fail
+  );
+  const ringsCollected = useAppSelector(
+    (state) => state.matchData.autonomous.ringsCollected
+  );
+
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.autonomousPage}>
       <h1 className={classes.mainTitle}>{AUTONOMOUS_TITLE}</h1>
       <h2 className={classes.subTitle}>{LEAVE_TITLE}</h2>
-      <Checkbox label={LEAVE_TITLE.toUpperCase()} />
+      <Checkbox
+        label={LEAVE_TITLE.toUpperCase()}
+        onChange={(event) => dispatch(setLeave(event.target.checked))}
+        checked={leave}
+      />
       <h2 className={classes.subTitle}>{SPEAKER_TITLE}</h2>
       <div className={classes.countButtons}>
         <div className={classes.successButton}>
@@ -38,15 +66,17 @@ const Autonomous: React.FC = () => {
           <div>
             <IconButton
               onClick={() =>
-                speakerCountSuccess > 0 &&
-                setSpeakerCountSuccess((prev) => prev - 1)
+                speakerSuccess > 0 &&
+                dispatch(setAutonomousSpeakerSuccess(speakerSuccess - 1))
               }
             >
               <RemoveIcon />
             </IconButton>
-            <>{speakerCountSuccess.toString()}</>
+            <>{speakerSuccess.toString()}</>
             <IconButton
-              onClick={() => setSpeakerCountSuccess((prev) => prev + 1)}
+              onClick={() =>
+                dispatch(setAutonomousSpeakerSuccess(speakerSuccess + 1))
+              }
             >
               <AddIcon />
             </IconButton>
@@ -57,13 +87,18 @@ const Autonomous: React.FC = () => {
           <div>
             <IconButton
               onClick={() =>
-                speakerCountFail && setSpeakerCountFail((prev) => prev - 1)
+                speakerFail &&
+                dispatch(setAutonomousSpeakerFail(speakerFail - 1))
               }
             >
               <RemoveIcon />
             </IconButton>
-            <>{speakerCountFail.toString()}</>
-            <IconButton onClick={() => setSpeakerCountFail((prev) => prev + 1)}>
+            <>{speakerFail.toString()}</>
+            <IconButton
+              onClick={() =>
+                dispatch(setAutonomousSpeakerFail(speakerFail + 1))
+              }
+            >
               <AddIcon />
             </IconButton>
           </div>
@@ -76,13 +111,16 @@ const Autonomous: React.FC = () => {
           <div>
             <IconButton
               onClick={() =>
-                ampCountSuccess > 0 && setAmpCountSuccess((prev) => prev - 1)
+                ampSuccess > 0 &&
+                dispatch(setAutonomousAmpSuccess(ampSuccess - 1))
               }
             >
               <RemoveIcon />
             </IconButton>
-            <>{ampCountSuccess.toString()}</>
-            <IconButton onClick={() => setAmpCountSuccess((prev) => prev + 1)}>
+            <>{ampSuccess.toString()}</>
+            <IconButton
+              onClick={() => dispatch(setAutonomousAmpSuccess(ampSuccess + 1))}
+            >
               <AddIcon />
             </IconButton>
           </div>
@@ -92,33 +130,101 @@ const Autonomous: React.FC = () => {
           <div>
             <IconButton
               onClick={() =>
-                ampCountFail > 0 && setAmpCountFail((prev) => prev - 1)
+                ampFail > 0 && dispatch(setAutonomousAmpFail(ampFail - 1))
               }
             >
               <RemoveIcon />
             </IconButton>
-            <>{ampCountFail.toString()}</>
-            <IconButton onClick={() => setAmpCountFail((prev) => prev + 1)}>
+            <>{ampFail.toString()}</>
+            <IconButton
+              onClick={() => dispatch(setAutonomousAmpFail(ampFail + 1))}
+            >
               <AddIcon />
             </IconButton>
           </div>
         </div>
       </div>
       <div className={classes.ringsCollected}>
-      <h2 className={classes.subTitle}>{RINGS_TITLE}</h2>
-      <img src="./field.png" className={classes.fieldImage} />
-      <Checkbox className={classes.ring1} />
-      <Checkbox className={classes.ring2} />
-      <Checkbox className={classes.ring3} />
-      <Checkbox className={classes.ring4} />
-      <Checkbox className={classes.ring5} />
-      <Checkbox className={classes.ring6} />
-      <Checkbox className={classes.ring7} />
-      <Checkbox className={classes.ring8} />
+        <h2 className={classes.subTitle}>{RINGS_TITLE}</h2>
+        <img src="./field.png" className={classes.fieldImage} />
+        <Checkbox
+          className={classes.ring1}
+          onChange={(event) => {
+            console.log(
+              ringsCollected,
+              ringsCollected.find((ring) => ring === 1)
+            );
+            event.target.checked
+              ? dispatch(addRingCollected(1))
+              : dispatch(removeRingcollected(1));
+          }}
+          checked={ringsCollected.find((ring) => ring === 1) != undefined}
+        />
+        <Checkbox
+          className={classes.ring2}
+          onChange={(event) =>
+            event.target.checked
+              ? dispatch(addRingCollected(2))
+              : dispatch(removeRingcollected(2))
+          }
+          checked={ringsCollected.find((ring) => ring === 2) != undefined}
+        />
+        <Checkbox
+          className={classes.ring3}
+          onChange={(event) =>
+            event.target.checked
+              ? dispatch(addRingCollected(3))
+              : dispatch(removeRingcollected(3))
+          }
+          checked={ringsCollected.find((ring) => ring === 3) != undefined}
+        />
+        <Checkbox
+          className={classes.ring4}
+          onChange={(event) =>
+            event.target.checked
+              ? dispatch(addRingCollected(4))
+              : dispatch(removeRingcollected(4))
+          }
+          checked={ringsCollected.find((ring) => ring === 4) != undefined}
+        />
+        <Checkbox
+          className={classes.ring5}
+          onChange={(event) =>
+            event.target.checked
+              ? dispatch(addRingCollected(5))
+              : dispatch(removeRingcollected(5))
+          }
+          checked={ringsCollected.find((ring) => ring === 5) != undefined}
+        />
+        <Checkbox
+          className={classes.ring6}
+          onChange={(event) =>
+            event.target.checked
+              ? dispatch(addRingCollected(6))
+              : dispatch(removeRingcollected(6))
+          }
+          checked={ringsCollected.find((ring) => ring === 6) != undefined}
+        />
+        <Checkbox
+          className={classes.ring7}
+          onChange={(event) =>
+            event.target.checked
+              ? dispatch(addRingCollected(7))
+              : dispatch(removeRingcollected(7))
+          }
+          checked={ringsCollected.find((ring) => ring === 7) != undefined}
+        />
+        <Checkbox
+          className={classes.ring8}
+          onChange={(event) =>
+            event.target.checked
+              ? dispatch(addRingCollected(8))
+              : dispatch(removeRingcollected(8))
+          }
+          checked={ringsCollected.find((ring) => ring === 8) != undefined}
+        />
       </div>
-      <div>
-        <NavigationButtons prevPath={PREV_PATH} nextPath={NEXT_PATH} />
-      </div>
+      <NavigationButtons prevPath={PREV_PATH} nextPath={NEXT_PATH} />
     </div>
   );
 };

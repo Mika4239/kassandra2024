@@ -13,7 +13,7 @@ const SelectFromData: React.FC<SelectFromDataProps> = (props) => {
   const { name, data, dataTranslate } = props;
 
   const chosen = useAppSelector(
-    (state) => state[name as keyof SelectMatchState]
+    (state) => state.matchData[name as keyof SelectMatchState]
   );
   const dispatch = useDispatch();
 
