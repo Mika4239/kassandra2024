@@ -5,6 +5,7 @@ import { getTBAData } from "../../utils/general";
 import { translateMatch, translateTeam } from "../../utils/translations";
 import Button from "@mui/material/Button/Button";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
 
 const SELECT_TITLE = 'Select Match';
 
@@ -22,9 +23,8 @@ const SelectMatch: React.FC = () => {
     const [matches, setMatches] = useState<string[]>([]);
     const [teams, setTeams] = useState<string[]>([]);
 
-    const [event, setEvent] = useState<string>('');
-    const [match, setMatch] = useState<string>('');
-    const [team, setTeam] = useState<string>('');
+    const event = useAppSelector(state => state.matchData.event);
+    const match = useAppSelector(state => state.matchData.match);
 
     useEffect(() => {
         getTBAData<Event[]>("https://www.thebluealliance.com/api/v3/events/2024")
@@ -76,22 +76,16 @@ const SelectMatch: React.FC = () => {
             <SelectFromData
                 name={EVENT}
                 data={events.map((event) => event.key)}
-                chosen={event}
-                setChosen={setEvent}
                 dataTranslate={translateEvent}
             />
             <SelectFromData
                 name={MATCH}
                 data={matches}
-                chosen={match}
-                setChosen={setMatch}
                 dataTranslate={translateMatch}
             />
             <SelectFromData
                 name={TEAM}
                 data={teams}
-                chosen={team}
-                setChosen={setTeam}
                 dataTranslate={translateTeam}
             />
             <NavLink to={'/' + AUTONOMOUS_PATH}>
