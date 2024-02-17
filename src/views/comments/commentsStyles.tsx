@@ -16,7 +16,7 @@ const useStyles = makeStyles()({
     subTitle: {
         fontSize: '30px',
         color: '#ff9c34' 
-    },
+    }
 });
 
 export default useStyles;
