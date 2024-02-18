@@ -16,6 +16,11 @@ const useStyles = makeStyles()({
     subTitle: {
         fontSize: '30px',
         color: '#ff9c34' 
+    },
+    graph: {
+        width: '80vw',
+        height: '20px',
+        display: 'flex'
     }
 });
 
