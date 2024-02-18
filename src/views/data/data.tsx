@@ -1,3 +1,4 @@
+import DataTable from "../../components/dataTable/dataTable";
 import NavBar from "../../components/navBar/navBar";
 import useStyles from "./dataStyles";
 
@@ -15,6 +16,7 @@ const Data: React.FC = () => {
             <div className={classes.dataPage}>
                 <h1 className={classes.mainTitle}>{DATA_TITLE}</h1>
                 <h2 className={classes.subTitle}>{TABLE_TITLE}</h2>
+                <DataTable data={[]} />
                 <h2 className={classes.subTitle}>{GRAPH_TITLE}</h2>
             </div>
         </>
