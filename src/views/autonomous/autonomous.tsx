@@ -155,10 +155,6 @@ const Autonomous: React.FC = () => {
           <Checkbox
             className={classes.ring1}
             onChange={(event) => {
-              console.log(
-                ringsCollected,
-                ringsCollected.find((ring) => ring === 1)
-              );
               event.target.checked
                 ? dispatch(addRingCollected(1))
                 : dispatch(removeRingcollected(1));
