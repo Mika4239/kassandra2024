@@ -1,5 +1,3 @@
-import { MatchData } from "../../types/matchData.js";
-
-export interface DataGraphProps {
+interface DataGraphProps {
     data: MatchData[];
 }

@@ -8,7 +8,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { DataGraphProps } from "./dataGraphProps.js";
 
 const DataGraph: React.FC<DataGraphProps> = (props) => {
   const { data } = props;
