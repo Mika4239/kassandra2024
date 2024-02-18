@@ -34,7 +34,7 @@ const SelectMatch: React.FC = () => {
   }, []);
 
   useMemo(() => {
-    getTBAData<Match[]>(
+    event !== '' && getTBAData<Match[]>(
       `https://www.thebluealliance.com/api/v3/event/${event}/matches/simple`
     )
       .catch((error) => console.log(error))
