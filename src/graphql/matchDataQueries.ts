@@ -5,3 +5,47 @@ mutation createMatchData($input: CreateMatchDataInput!) {
     }   
 }
 `;
+
+export const getAllMatchData = `
+{
+    listMatchData{
+        items{
+            event
+            match
+            team
+            autonomous{
+                leave
+                speaker{
+                    success
+                    fail
+                }
+                amp{
+                    success
+                    fail
+                }
+                ringsCollected
+            }
+            teleop{
+                speaker{
+                    success
+                    fail
+                }
+                amp{
+                    success
+                    fail
+                }
+            }
+            endgame{
+                stage
+                spotlit
+                trap
+            }
+            comments{
+                defence
+                penalties
+                other 
+            }
+        }
+    }
+}
+`;
