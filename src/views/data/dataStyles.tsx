@@ -1,11 +1,11 @@
 import { makeStyles } from "tss-react/mui";
 
 const useStyles = makeStyles()({
-    selectPage: {
+    dataPage: {
         display: 'flex',
         flexDirection: 'column',
         width: '100vw',
-        height: '100vh',
+        justifyContent: 'center',
         alignItems: 'center',
         fontFamily: 'Helvetica'
     },
@@ -13,12 +13,14 @@ const useStyles = makeStyles()({
         fontSize: '50px',
         color: '#ff9c34'
     },
-    startButton: {
-        margin: '50px',
-        backgroundColor: 'green',
-        ':hover': {
-            backgroundColor: 'darkgreen'
-        }
+    subTitle: {
+        fontSize: '30px',
+        color: '#ff9c34' 
+    },
+    graph: {
+        width: '80vw',
+        height: '20px',
+        display: 'flex'
     }
 });
 

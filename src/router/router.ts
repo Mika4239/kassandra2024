@@ -5,11 +5,16 @@ import Autonomous from "../views/autonomous/autonomous";
 import Teleop from "../views/teleop/teleop";
 import Endgame from "../views/endgame/endgame";
 import Comments from "../views/comments/comments";
+import Data from "../views/data/data";
 
 const router = createBrowserRouter([
     {
         path: '/',
         Component: Home
+    },
+    {
+        path: '/data',
+        Component: Data
     },
     {
         path: '/select',
