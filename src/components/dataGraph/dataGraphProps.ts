@@ -1,0 +1,3 @@
+interface DataGraphProps {
+    data: MatchData[];
+}
