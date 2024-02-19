@@ -10,21 +10,21 @@ import useStyles from "./selectGraphStyles";
 
 const AUTONOMOUS_TITLE = "Autonomous";
 const TELEOP_TITLE = "Teleop";
-const ENDGAME_TITLE = "Endagme";
+const ENDGAME_TITLE = "Endgame";
 
-const AUTONOMOUS_OPTIONS = ["leave", "speaker", "amp", "rings collected"];
+const AUTONOMOUS_OPTIONS = ["leave", "speaker", "amp", "ringsCollected"];
 const TELEOP_OPTIONS = ["speaker", "amp"];
 const ENDGAME_OPTIONS = ["stage", "spotlit", "trap"];
 
 const PeriodItem: React.FC<PeriodItemProps> = (props) => {
-  const { period, options } = props;
+  const { period, options, setKey } = props;
   const { classes } = useStyles();
 
   const [open, setOpen] = useState<boolean>(false);
 
   return (
     <ListItem className={classes.selectList}>
-      <Button onClick={() => setOpen(!open)}  className={classes.option} >
+      <Button onClick={() => setOpen(!open)} className={classes.option}>
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         <Typography>{period}</Typography>
       </Button>
@@ -32,8 +32,8 @@ const PeriodItem: React.FC<PeriodItemProps> = (props) => {
         <List>
           {options.map((option, index) => (
             <ListItem key={index}>
-              <Button>
-                <ListItemText primary={option} className={classes.option} />
+              <Button onClick={() => setKey(`${period.toLowerCase()}.${option}`)}>
+                <ListItemText primary={option.replace('C', ' C')} className={classes.option} />
               </Button>
             </ListItem>
           ))}
@@ -42,14 +42,27 @@ const PeriodItem: React.FC<PeriodItemProps> = (props) => {
     </ListItem>
   );
 };
-const SelectGraph = () => {
+const SelectGraph: React.FC<SelectGraphProps> = (props) => {
   const { classes } = useStyles();
+  const { setKey } = props;
 
   return (
-    <List className={classes.selectList} >
-      <PeriodItem period={AUTONOMOUS_TITLE} options={AUTONOMOUS_OPTIONS} />
-      <PeriodItem period={TELEOP_TITLE} options={TELEOP_OPTIONS} />
-      <PeriodItem period={ENDGAME_TITLE} options={ENDGAME_OPTIONS} />
+    <List className={classes.selectList}>
+      <PeriodItem
+        period={AUTONOMOUS_TITLE}
+        options={AUTONOMOUS_OPTIONS}
+        setKey={setKey}
+      />
+      <PeriodItem
+        period={TELEOP_TITLE}
+        options={TELEOP_OPTIONS}
+        setKey={setKey}
+      />
+      <PeriodItem
+        period={ENDGAME_TITLE}
+        options={ENDGAME_OPTIONS}
+        setKey={setKey}
+      />
     </List>
   );
 };
