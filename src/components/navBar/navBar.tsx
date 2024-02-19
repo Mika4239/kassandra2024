@@ -1,6 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useStyles from "./navBarStyles.js";
-import { Avatar } from "@mui/material";
+import { Avatar, IconButton, ListItemIcon, MenuItem } from "@mui/material";
+import { useAppSelector } from "../../redux/hooks.js";
+import { Dropdown, Menu, MenuButton } from "@mui/joy";
+import { Logout } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { resetUser } from "../../redux/userSlice.js";
 
 const SCOUTING_PATH = "/select";
 const DATA_PATH = "/data";
@@ -8,8 +13,20 @@ const DATA_PATH = "/data";
 const SCOUTING = "Scouting";
 const DATA = "Data";
 
+const LOG_OUT = 'Log Out';
+
 const NavBar: React.FC = () => {
   const { classes } = useStyles();
+
+  const currentUser = useAppSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    dispatch(resetUser());
+    navigate('/');
+  }
 
   return (
     <div className={classes.bar}>
@@ -19,7 +36,21 @@ const NavBar: React.FC = () => {
       <NavLink to={DATA_PATH} className={classes.navLink}>
         {DATA}
       </NavLink>
-      <Avatar />
+      <Dropdown>
+        <MenuButton slots={{ root: IconButton }}>
+          <Avatar
+            src={`https://ui-avatars.com/api/?name=${currentUser.firstName}+${currentUser.lastName}`}
+          />
+        </MenuButton>
+        <Menu>
+          <MenuItem onClick={logout}>
+            <ListItemIcon>
+              <Logout />
+            </ListItemIcon>
+            {LOG_OUT}
+          </MenuItem>
+        </Menu>
+      </Dropdown>
     </div>
   );
 };

@@ -10,6 +10,11 @@ import { IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
+import executeQuery from "../../graphql/graphqlClient.js";
+import { getUserByLogin } from "../../graphql/userQueries.js";
+import { listUsers } from "../../graphql/interfaces.js";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/userSlice.js";
 
 const SIGN_IN = "Sign In";
 
@@ -29,11 +34,20 @@ const SignInDialog: React.FC<SignInDialogProps> = (props) => {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const checkUser = () => {
-    setOpen(false);
-    navigate(SELECT_PATH);
+    executeQuery<listUsers>(getUserByLogin, {'username': username, 'password': password}).then((response) => {
+      if(response && response.listUsers.items.length > 0){
+        dispatch(setUser(response.listUsers.items[0]));
+        setOpen(false);
+        navigate(SELECT_PATH);
+      }
+      else{
+        console.log('wrong username or password');
+      }
+    })
   };
 
   return (
