@@ -17,6 +17,7 @@ const Data: React.FC = () => {
     const { classes } = useStyles();
 
     const [data, setData] = useState<MatchData[]>([]);
+    const [graphKey, setGraphKey] = useState<string>('');
 
     useEffect(() => {
         executeQuery<listMatchData>(getAllMatchData).then((response) => response && setData(response.listMatchData.items));
@@ -31,8 +32,8 @@ const Data: React.FC = () => {
                 <DataTable data={data} />
                 <h2 className={classes.subTitle}>{GRAPH_TITLE}</h2>
                 <div className={classes.graph}>
-                    <SelectGraph />
-                    <DataGraph data={[]} key={''}/>
+                    <SelectGraph setKey={setGraphKey} />
+                    <DataGraph data={data} graphKey={graphKey}/>
                 </div>
             </div>
         </>
