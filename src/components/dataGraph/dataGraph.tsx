@@ -10,6 +10,10 @@ import {
   YAxis,
 } from "recharts";
 
+interface GroupedData {
+  [key: string]: any;
+};
+
 const DataGraph: React.FC<DataGraphProps> = (props) => {
   const { data, graphKey } = props;
 
@@ -36,39 +40,26 @@ const DataGraph: React.FC<DataGraphProps> = (props) => {
   };
 
   const calculateAvg = () => {
-    data.forEach((matchData) => {
-      const value = findNestedValue(matchData, graphKey);
-      console.log(graphData)
-      const teamDataIndex = graphData.findIndex(
-        (obj) => obj["team"] === matchData.team
-      );
-      console.log(teamDataIndex)
-      if (teamDataIndex !== -1) {
-        setGraphData(prev => prev.map((item, index) => {
-          if(index === teamDataIndex){
-            item.sum += 1;
-            item.success += value.success;
-            item.fail += value.fail;
-          }
-          return item;
-        }));
-
-      } else {
-        setGraphData(prev => [...prev, {
-          team: matchData.team,
-          success: value.success,
-          fail: value.fail,
-          sum: 1,
-        }]);
+    const result = data.reduce((acc: GroupedData, matchData) => {
+      const category = matchData.team;
+      if (!acc[category]) {
+        acc[category] = { successSum: 0, failSum: 0, count: 0 };
       }
-    });
-    setGraphData(prev => prev.map((teamData) => {
-      teamData.success = teamData.success / teamData.sum;
-      teamData.fail = teamData.fail / teamData.sum;
-      delete teamData["sum"];
-
-      return teamData;
-    }));
+      acc[category].successSum += findNestedValue(matchData, graphKey).success;
+      acc[category].failSum += findNestedValue(matchData, graphKey).fail;
+      acc[category].count++;
+      acc[category].success = acc[category].successSum / acc[category].count;
+      acc[category].fail = acc[category].failSum / acc[category].count;
+      return acc;
+    }, {});
+    
+    setGraphData(Object.keys(result).map((teamKey) => {
+      return {
+        team: teamKey,
+        success: result[teamKey].success,
+        fail: result[teamKey].fail
+      }
+    }))
   };
 
   const calculateSum = () => {};
