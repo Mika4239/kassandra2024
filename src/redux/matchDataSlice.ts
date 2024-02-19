@@ -1,6 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { CommentsState, ReduxInput, SelectMatchState } from "../types/interfaces";
-
+import {
+  CommentsState,
+  ReduxInput,
+  SelectMatchState,
+} from "../types/interfaces";
 
 const initialState: MatchData = {
   event: "",
@@ -9,35 +12,35 @@ const initialState: MatchData = {
   autonomous: {
     leave: false,
     speaker: {
-        success: 0,
-        fail: 0
+      success: 0,
+      fail: 0,
     },
     amp: {
-        success: 0,
-        fail: 0
+      success: 0,
+      fail: 0,
     },
-    ringsCollected: []
+    ringsCollected: [],
   },
   teleop: {
     speaker: {
-        success: 0,
-        fail: 0
+      success: 0,
+      fail: 0,
     },
     amp: {
-        success: 0,
-        fail: 0
-    }
+      success: 0,
+      fail: 0,
+    },
   },
   endgame: {
-    stage: '',
+    stage: "",
     spotlit: false,
-    trap: false
+    trap: false,
   },
   comments: {
-    defence: '',
-    penalties: '',
-    other: ''
-  }
+    defence: "",
+    penalties: "",
+    other: "",
+  },
 };
 
 export const matchDataSlice = createSlice({
@@ -45,66 +48,70 @@ export const matchDataSlice = createSlice({
   initialState: initialState,
   reducers: {
     resetMatchData: (state) => {
-        (state.autonomous = initialState.autonomous),
+      (state.autonomous = initialState.autonomous),
         (state.teleop = initialState.teleop),
-        (state.endgame = initialState.endgame);
+        (state.endgame = initialState.endgame),
+        (state.comments = initialState.comments);
     },
     setMatchTeam: (state, action: PayloadAction<ReduxInput>) => {
-        if(action.payload.name == "event") {
-          state.match = "";
-          state.team = "";
-        }
-        if(action.payload.name == "match") {
-          state.team = "";
-        }
-        state[action.payload.name as keyof SelectMatchState] =
-          action.payload.input;
+      if (action.payload.name == "event") {
+        state.match = "";
+        state.team = "";
+      }
+      if (action.payload.name == "match") {
+        state.team = "";
+      }
+      state[action.payload.name as keyof SelectMatchState] =
+        action.payload.input;
     },
     setLeave: (state, action: PayloadAction<boolean>) => {
-        state.autonomous.leave = action.payload;
+      state.autonomous.leave = action.payload;
     },
     addRingCollected: (state, action: PayloadAction<number>) => {
       state.autonomous.ringsCollected.push(action.payload);
     },
     removeRingcollected: (state, action: PayloadAction<number>) => {
-      state.autonomous.ringsCollected = state.autonomous.ringsCollected.filter((ring) => ring != action.payload)
+      state.autonomous.ringsCollected = state.autonomous.ringsCollected.filter(
+        (ring) => ring != action.payload
+      );
     },
     setAutonomousSpeakerSuccess: (state, action: PayloadAction<number>) => {
-        state.autonomous.speaker.success = action.payload;
+      state.autonomous.speaker.success = action.payload;
     },
     setAutonomousSpeakerFail: (state, action: PayloadAction<number>) => {
-        state.autonomous.speaker.fail = action.payload;
+      state.autonomous.speaker.fail = action.payload;
     },
     setAutonomousAmpSuccess: (state, action: PayloadAction<number>) => {
-        state.autonomous.amp.success = action.payload;
+      state.autonomous.amp.success = action.payload;
     },
     setAutonomousAmpFail: (state, action: PayloadAction<number>) => {
-        state.autonomous.amp.fail = action.payload;
+      state.autonomous.amp.fail = action.payload;
     },
     setTeleopSpeakerSuccess: (state, action: PayloadAction<number>) => {
-        state.teleop.speaker.success = action.payload;
+      state.teleop.speaker.success = action.payload;
     },
     setTeleopSpeakerFail: (state, action: PayloadAction<number>) => {
-        state.teleop.speaker.fail = action.payload;
+      state.teleop.speaker.fail = action.payload;
     },
     setTeleopAmpSuccess: (state, action: PayloadAction<number>) => {
-        state.teleop.amp.success = action.payload;
+      state.teleop.amp.success = action.payload;
     },
     setTeleopAmpFail: (state, action: PayloadAction<number>) => {
-        state.teleop.amp.fail = action.payload;
+      state.teleop.amp.fail = action.payload;
     },
     setStage: (state, action: PayloadAction<string>) => {
-        state.endgame.stage = action.payload;
+      state.endgame.stage = action.payload;
     },
     setSpotlit: (state, action: PayloadAction<boolean>) => {
-        state.endgame.spotlit = action.payload;
+      state.endgame.spotlit = action.payload;
     },
     setTrap: (state, action: PayloadAction<boolean>) => {
-        state.endgame.trap = action.payload;
+      state.endgame.trap = action.payload;
     },
     setComments: (state, action: PayloadAction<ReduxInput>) => {
-        state.comments[action.payload.name as keyof CommentsState] = action.payload.input;
-    }
+      state.comments[action.payload.name as keyof CommentsState] =
+        action.payload.input;
+    },
   },
 });
 
@@ -125,7 +132,7 @@ export const {
   setStage,
   setSpotlit,
   setTrap,
-  setComments
+  setComments,
 } = matchDataSlice.actions;
 
 export default matchDataSlice.reducer;
