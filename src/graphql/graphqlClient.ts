@@ -10,7 +10,6 @@ const client = new GraphQLClient(endpoint, {
 
 const executeQuery = async <T,>(query: string, variables: Object = {}): Promise<T | null> => {
   try{
-    console.log(query, variables)
     return await client.request(query, {...variables});
   }
   catch(error) {

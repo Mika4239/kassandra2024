@@ -23,7 +23,6 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = (props) => {
   const dispatch = useDispatch();
 
   const submitMatch = async () => {
-    console.log(matchData);
     await executeQuery(createMatchData, {'input': matchData});
     dispatch(resetMatchData());
   };

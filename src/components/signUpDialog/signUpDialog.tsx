@@ -9,6 +9,8 @@ import useStyles from "./signUpDialogStyles.js";
 import { IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import executeQuery from "../../graphql/graphqlClient.js";
+import { createUser } from "../../graphql/userQueries.js";
 
 const SIGN_UP = "Sign Up";
 
@@ -31,6 +33,14 @@ const SignUpDialog: React.FC<SignUpDialogProps> = (props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const addUser = () => {
+    const newUSer = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'username': username,
+      'password': password
+    };
+
+    executeQuery(createUser, {'input': newUSer});
     setOpen(false);
   };
 
