@@ -13,6 +13,7 @@ export const getAllMatchData = `
             event
             match
             team
+            user
             autonomous{
                 leave
                 speaker{

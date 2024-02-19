@@ -6,6 +6,7 @@ import {
 } from "../types/interfaces";
 
 const initialState: MatchData = {
+  user: "",
   event: "",
   match: "",
   team: "",
@@ -47,11 +48,24 @@ export const matchDataSlice = createSlice({
   name: "matchData",
   initialState: initialState,
   reducers: {
+    resetAllMatchData: (state) => {
+      state.user = initialState.user;
+      state.event = initialState.event;
+      state.match = initialState.match;
+      state.team = initialState.team;
+      state.autonomous = initialState.autonomous;
+      state.teleop = initialState.teleop;
+      state.endgame = initialState.endgame;
+      state.comments = initialState.comments;
+    },
     resetMatchData: (state) => {
       (state.autonomous = initialState.autonomous),
         (state.teleop = initialState.teleop),
         (state.endgame = initialState.endgame),
         (state.comments = initialState.comments);
+    },
+    setMatchDataUser: (state, action: PayloadAction<string>) => {
+      state.user = action.payload;
     },
     setMatchTeam: (state, action: PayloadAction<ReduxInput>) => {
       if (action.payload.name == "event") {
@@ -116,7 +130,9 @@ export const matchDataSlice = createSlice({
 });
 
 export const {
+  resetAllMatchData,
   resetMatchData,
+  setMatchDataUser,
   setMatchTeam,
   setLeave,
   addRingCollected,

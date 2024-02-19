@@ -1,4 +1,5 @@
 interface MatchData {
+    user: string;
     event: string;
     match: string;
     team: string;
