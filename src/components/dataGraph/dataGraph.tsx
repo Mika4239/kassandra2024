@@ -55,7 +55,7 @@ const DataGraph: React.FC<DataGraphProps> = (props) => {
       return acc;
     }, {});
 
-    setBarKeys(['success', 'fail']);
+    setBarKeys(["success", "fail"]);
     setGraphData(
       Object.keys(result).map((teamKey) => {
         return {
@@ -80,26 +80,34 @@ const DataGraph: React.FC<DataGraphProps> = (props) => {
       if (Array.isArray(value)) {
         value.forEach((item) => {
           dataKeys.push(item.toString());
-          acc[category][item.toString()] = acc[category].hasOwnProperty(item.toString())
+          acc[category][item.toString()] = acc[category].hasOwnProperty(
+            item.toString()
+          )
             ? acc[category][item.toString()] + 1
             : 1;
         });
       } else {
         dataKeys.push(value.toString());
-        acc[category][value.toString()] = acc[category].hasOwnProperty(value.toString())
+        acc[category][value.toString()] = acc[category].hasOwnProperty(
+          value.toString()
+        )
           ? acc[category][value.toString()] + 1
           : 1;
       }
       return acc;
     }, {});
 
-    setBarKeys(dataKeys.filter((value, index) => dataKeys.indexOf(value) === index));
-    setGraphData(Object.keys(result).map((teamKey) => {
-      return {
-        team: teamKey,
-        ...result[teamKey]
-      }
-    }));
+    setBarKeys(
+      dataKeys.filter((value, index) => dataKeys.indexOf(value) === index)
+    );
+    setGraphData(
+      Object.keys(result).map((teamKey) => {
+        return {
+          team: teamKey,
+          ...result[teamKey],
+        };
+      })
+    );
   };
 
   return (
@@ -111,9 +119,13 @@ const DataGraph: React.FC<DataGraphProps> = (props) => {
           <YAxis />
           <Tooltip />
           <Legend />
-          {graphData.length > 0 && barKeys.map((key) => 
-            <Bar dataKey={key} fill={`#${Math.floor(Math.random()*16777215).toString(16)}`} />
-          )}
+          {graphData.length > 0 &&
+            barKeys.map((key) => (
+              <Bar
+                dataKey={key}
+                fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+              />
+            ))}
         </BarChart>
       </ResponsiveContainer>
     </>
