@@ -19,7 +19,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = (props) => {
 
   const isSubmit = nextPath === SELECT_PATH;
 
-  const { _persist, ...matchData} = useAppSelector((state) => state.matchData);
+  const matchData = useAppSelector((state) => state.matchData);
   const dispatch = useDispatch();
 
   const submitMatch = async () => {
