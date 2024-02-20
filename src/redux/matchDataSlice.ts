@@ -33,7 +33,7 @@ const initialState: MatchData = {
     },
   },
   endgame: {
-    stage: "",
+    stage: "NONE",
     spotlit: false,
     trap: false,
   },
