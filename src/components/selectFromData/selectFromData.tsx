@@ -8,7 +8,7 @@ import { SelectMatchState } from "../../types/interfaces";
 import { useDispatch } from "react-redux";
 import { setMatchTeam } from "../../redux/matchDataSlice";
 import { TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SelectFromData: React.FC<SelectFromDataProps> = (props) => {
   const { classes } = useStyles();
@@ -20,6 +20,10 @@ const SelectFromData: React.FC<SelectFromDataProps> = (props) => {
   const dispatch = useDispatch();
 
   const [isOther, setIsOther] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsOther(chosen !== '' && data.find((item) => item === chosen) === undefined);
+  }, [data]);
 
   return (
     <FormControl className={classes.selectBox}>
