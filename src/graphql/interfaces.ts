@@ -10,6 +10,12 @@ export interface ListUsers {
     };
 };
 
+export interface ListUsersByTeam {
+    usersByTeam: {
+        items: User[];
+    }
+}
+
 export interface ListTeams {
     listTeams: {
         items: [{

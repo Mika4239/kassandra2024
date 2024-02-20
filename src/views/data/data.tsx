@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import DataGraph from "../../components/dataGraph/dataGraph";
 import DataTable from "../../components/dataTable/dataTable";
 import NavBar from "../../components/navBar/navBar";
@@ -6,10 +6,14 @@ import SelectGraph from "../../components/selectGraph/selectGraph";
 import useStyles from "./dataStyles";
 import executeQuery from "../../graphql/graphqlClient";
 import { getAllMatchData } from "../../graphql/matchDataQueries";
-import { ListMatchData } from "../../graphql/interfaces";
+import { ListMatchData, ListUsersByTeam } from "../../graphql/interfaces";
 import { useAppSelector } from "../../redux/hooks";
+import { TabList, Tab, Tabs } from "@mui/joy";
+import { getUsersByTeam } from "../../graphql/userQueries";
 
 const DATA_TITLE = "Data";
+
+const OPTIONS = ["my", "team", "all"];
 
 const TABLE_TITLE = "Table";
 const GRAPH_TITLE = "Graph";
@@ -18,38 +22,85 @@ const Data: React.FC = () => {
   const { classes } = useStyles();
 
   const [data, setData] = useState<MatchData[]>([]);
+  const [filteredData, setFilteredData] = useState<MatchData[]>([]);
+
   const [graphKey, setGraphKey] = useState<string>("");
 
-  const [allowedUsers, setAllowesUsers] = useState<string[]>();
-
-  const userId = useAppSelector((state) => state.user.id);
+  const user = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    setAllowesUsers([userId]);
-    executeQuery<ListMatchData>(getAllMatchData).then(
-      (response) => response && setData(response.listMatchData.items)
-    );
+    executeQuery<ListMatchData>(getAllMatchData).then((response) => {
+      if (response) {
+        setData(response.listMatchData.items);
+        setFilteredData(
+          response.listMatchData.items.filter(
+            (matchData) => matchData.user == user.id
+          )
+        );
+      }
+    });
   }, []);
 
-  useMemo(() => {
-    setData((prev) =>
-      prev.filter((matchData) =>
-        allowedUsers?.find((user) => user === matchData.user)
-      )
-    );
-  }, [allowedUsers]);
+  const changedAllowedData = (value: number | string | null) => {
+    switch (value) {
+      case "my":
+        setFilteredData(() =>
+          data.filter((matchData) => matchData.user == user.id)
+        );
+        break;
+      case "team":
+        user.team
+          ? executeQuery<ListUsersByTeam>(getUsersByTeam, {
+              team: user.team,
+            }).then(
+              (response) =>
+                response &&
+                setFilteredData(() =>
+                  data.filter((matchData) =>
+                    response.usersByTeam.items.find(
+                      (user) => user.id === matchData.user
+                    )
+                  )
+                )
+            )
+          : setFilteredData(() =>
+              data.filter((matchData) => matchData.user == user.id)
+            );
+        break;
+      case "all":
+        setFilteredData(data);
+        break;
+      default:
+        setFilteredData(() =>
+          data.filter((matchData) => matchData.user == user.id)
+        );
+        break;
+    }
+  };
 
   return (
     <>
       <NavBar />
       <div className={classes.dataPage}>
         <h1 className={classes.mainTitle}>{DATA_TITLE}</h1>
+        <Tabs
+          onChange={(event, value) => changedAllowedData(value)}
+          defaultValue="my"
+        >
+          <TabList>
+            {OPTIONS.map((option) => (
+              <Tab key={option} value={option}>
+                {`${option} data`.toUpperCase()}
+              </Tab>
+            ))}
+          </TabList>
+        </Tabs>
         <h2 className={classes.subTitle}>{TABLE_TITLE}</h2>
-        <DataTable data={data} />
+        <DataTable data={filteredData} />
         <h2 className={classes.subTitle}>{GRAPH_TITLE}</h2>
         <div className={classes.graph}>
           <SelectGraph setKey={setGraphKey} />
-          <DataGraph data={data} graphKey={graphKey} />
+          <DataGraph data={filteredData} graphKey={graphKey} />
         </div>
       </div>
     </>

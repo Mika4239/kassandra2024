@@ -27,3 +27,18 @@ mutation updateUserTeam($id: ID!, $team: ID) {
     }
 }
 `;
+
+export const getUsersByTeam = `
+query usersByTeam($team: ID = null) {
+    usersByTeam(team: $team) {
+        items {
+            id
+            firstName
+            lastName
+            username
+            password
+            team
+        }
+    }
+}  
+`;
