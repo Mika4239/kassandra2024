@@ -6,7 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import useStyles from "./signUpDialogStyles.js";
-import { IconButton } from "@mui/material";
+import { FormControl, IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import executeQuery from "../../graphql/graphqlClient.js";
@@ -35,7 +35,8 @@ const SignUpDialog: React.FC<SignUpDialogProps> = (props) => {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const addUser = () => {
+  const addUser = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const newUser: UserInput = {
       firstName: firstName,
       lastName: lastName,
@@ -53,51 +54,57 @@ const SignUpDialog: React.FC<SignUpDialogProps> = (props) => {
 
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
-      <DialogTitle>{SIGN_UP}</DialogTitle>
-      <DialogContent className={classes.dialogContent}>
-        <TextField
-          className={classes.inputBox}
-          label={FIRST_NAME}
-          type="text"
-          value={firstName}
-          onChange={(event) => setFirstName(event.target.value)}
-        />
-        <TextField
-          className={classes.inputBox}
-          label={LAST_NAME}
-          type="text"
-          value={lastName}
-          onChange={(event) => setLastName(event.target.value)}
-        />
-        <TextField
-          className={classes.inputBox}
-          label={USERNAME}
-          type="text"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-        />
-        <TextField
-          className={classes.inputBox}
-          label={PASSWORD}
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          InputProps={{
-            endAdornment: (
-              <IconButton onClick={() => setShowPassword((prev) => !prev)}>
-                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            ),
-          }}
-        />
-        <SelectTeam team={team} setTeam={setTeam} />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => setOpen(false)}>{CANCEL}</Button>
-        <Button variant="contained" onClick={addUser}>
-          {SIGN_UP}
-        </Button>
-      </DialogActions>
+      <FormControl component="form" onSubmit={addUser}>
+        <DialogTitle>{SIGN_UP}</DialogTitle>
+        <DialogContent className={classes.dialogContent}>
+          <TextField
+            required
+            className={classes.inputBox}
+            label={FIRST_NAME}
+            type="text"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+          />
+          <TextField
+            required
+            className={classes.inputBox}
+            label={LAST_NAME}
+            type="text"
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+          />
+          <TextField
+            required
+            className={classes.inputBox}
+            label={USERNAME}
+            type="text"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
+          <TextField
+            required
+            className={classes.inputBox}
+            label={PASSWORD}
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={() => setShowPassword((prev) => !prev)}>
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              ),
+            }}
+          />
+          <SelectTeam team={team} setTeam={setTeam} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>{CANCEL}</Button>
+          <Button type="submit" variant="contained">
+            {SIGN_UP}
+          </Button>
+        </DialogActions>
+      </FormControl>
     </Dialog>
   );
 };

@@ -6,7 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import useStyles from "./signInDialogStyles.js";
-import { IconButton } from "@mui/material";
+import { FormHelperText, IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +22,8 @@ const SIGN_IN = "Sign In";
 const USERNAME = "Username";
 const PASSWORD = "Password";
 
+const ERROR_MESSAGE = 'username or password are incorrect';
+
 const CANCEL = "Cancel";
 
 const SELECT_PATH = '/select';
@@ -34,6 +36,7 @@ const SignInDialog: React.FC<SignInDialogProps> = (props) => {
   const [password, setPassword] = useState<string>("");
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [failed, setFailed] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,7 +50,7 @@ const SignInDialog: React.FC<SignInDialogProps> = (props) => {
         navigate(SELECT_PATH);
       }
       else{
-        console.log('wrong username or password');
+        setFailed(true);
       }
     })
   };
@@ -61,14 +64,20 @@ const SignInDialog: React.FC<SignInDialogProps> = (props) => {
           label={USERNAME}
           type="text"
           value={username}
-          onChange={(event) => setUsername(event.target.value)}
+          onChange={(event) => {
+            setFailed(false);
+            setUsername(event.target.value);
+          }}
         />
         <TextField
           className={classes.inputBox}
           label={PASSWORD}
           type={showPassword ? "text" : "password"}
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={(event) => {
+            setFailed(false);
+            setPassword(event.target.value);
+          }}
           InputProps={{
             endAdornment: (
               <IconButton onClick={() => setShowPassword((prev) => !prev)}>
@@ -77,6 +86,7 @@ const SignInDialog: React.FC<SignInDialogProps> = (props) => {
             ),
           }}
         />
+        {failed && <FormHelperText error>{ERROR_MESSAGE}</FormHelperText>}
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpen(false)}>{CANCEL}</Button>
