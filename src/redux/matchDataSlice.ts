@@ -23,6 +23,7 @@ const initialState: MatchData = {
     ringsCollected: [],
   },
   teleop: {
+    shootingPositions: ["none"],
     speaker: {
       success: 0,
       fail: 0,
@@ -101,6 +102,14 @@ export const matchDataSlice = createSlice({
     setAutonomousAmpFail: (state, action: PayloadAction<number>) => {
       state.autonomous.amp.fail = action.payload;
     },
+    addShootingPosition: (state, action: PayloadAction<string>) => {
+      state.teleop.shootingPositions.push(action.payload);
+    },
+    removeShootingPosition: (state, action: PayloadAction<string>) => {
+      state.teleop.shootingPositions = state.teleop.shootingPositions.filter(
+        (position) => position != action.payload
+      );
+    },
     setTeleopSpeakerSuccess: (state, action: PayloadAction<number>) => {
       state.teleop.speaker.success = action.payload;
     },
@@ -141,6 +150,8 @@ export const {
   setAutonomousSpeakerFail,
   setAutonomousAmpSuccess,
   setAutonomousAmpFail,
+  addShootingPosition,
+  removeShootingPosition,
   setTeleopSpeakerSuccess,
   setTeleopSpeakerFail,
   setTeleopAmpSuccess,

@@ -13,7 +13,7 @@ const TELEOP_TITLE = "Teleop";
 const ENDGAME_TITLE = "Endgame";
 
 const AUTONOMOUS_OPTIONS = ["leave", "speaker", "amp", "ringsCollected"];
-const TELEOP_OPTIONS = ["speaker", "amp"];
+const TELEOP_OPTIONS = ["speaker", "amp", "shootingPositions"];
 const ENDGAME_OPTIONS = ["stage", "spotlit", "trap"];
 
 const PeriodItem: React.FC<PeriodItemProps> = (props) => {
@@ -33,7 +33,7 @@ const PeriodItem: React.FC<PeriodItemProps> = (props) => {
           {options.map((option, index) => (
             <ListItem key={index}>
               <Button onClick={() => setKey(`${period.toLowerCase()}.${option}`)}>
-                <ListItemText primary={option.replace('C', ' C')} className={classes.option} />
+                <ListItemText primary={option.replace('C', ' C').replace('P', ' P')} className={classes.option} />
               </Button>
             </ListItem>
           ))}
