@@ -1,11 +1,33 @@
-export interface listMatchData {
+export interface ListMatchData {
     listMatchData: {
         items: MatchData[];
     };
 };
 
-export interface listUsers {
+export interface ListUsers {
     listUsers: {
         items: User[];
+    };
+};
+
+export interface ListTeams {
+    listTeams: {
+        items: [{
+            id: string;
+            name: string;
+            number: number;
+            description: string;
+            image: string;
+            admin: string[];
+            Users: {
+                items: User[];
+            }
+        }]
+    }
+}
+
+export interface CreateTeam {
+    createTeam: {
+        id: string;
     };
 };

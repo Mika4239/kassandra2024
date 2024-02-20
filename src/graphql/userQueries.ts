@@ -19,3 +19,11 @@ query getUserByLogin($username: String!, $password: String!) {
     }
 }  
 `;
+
+export const updateUserTeam = `
+mutation updateUserTeam($id: ID!, $team: ID) {
+    updateUser(input: {id: $id, team: $team}){
+        id
+    }
+}
+`;

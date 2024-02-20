@@ -3,18 +3,20 @@ import useStyles from "./navBarStyles.js";
 import { Avatar, IconButton, ListItemIcon, MenuItem } from "@mui/material";
 import { useAppSelector } from "../../redux/hooks.js";
 import { Dropdown, Menu, MenuButton } from "@mui/joy";
-import { Logout } from "@mui/icons-material";
+import { Group, Logout } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { resetUser } from "../../redux/userSlice.js";
 import { resetAllMatchData } from "../../redux/matchDataSlice.js";
 
 const SCOUTING_PATH = "/select";
 const DATA_PATH = "/data";
+const TEAMS_PATH = "/teams";
 
 const SCOUTING = "Scouting";
 const DATA = "Data";
 
-const LOG_OUT = 'Log Out';
+const TEAMS = "Teams";
+const LOG_OUT = "Log Out";
 
 const NavBar: React.FC = () => {
   const { classes } = useStyles();
@@ -27,8 +29,8 @@ const NavBar: React.FC = () => {
   const logout = () => {
     dispatch(resetAllMatchData());
     dispatch(resetUser());
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     <div className={classes.bar}>
@@ -45,6 +47,12 @@ const NavBar: React.FC = () => {
           />
         </MenuButton>
         <Menu>
+          <MenuItem onClick={() => navigate(TEAMS_PATH)}>
+            <ListItemIcon>
+              <Group />
+            </ListItemIcon>
+            {TEAMS}
+          </MenuItem>
           <MenuItem onClick={logout}>
             <ListItemIcon>
               <Logout />

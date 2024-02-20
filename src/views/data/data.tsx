@@ -6,7 +6,7 @@ import SelectGraph from "../../components/selectGraph/selectGraph";
 import useStyles from "./dataStyles";
 import executeQuery from "../../graphql/graphqlClient";
 import { getAllMatchData } from "../../graphql/matchDataQueries";
-import { listMatchData } from "../../graphql/interfaces";
+import { ListMatchData } from "../../graphql/interfaces";
 import { useAppSelector } from "../../redux/hooks";
 
 const DATA_TITLE = "Data";
@@ -26,7 +26,7 @@ const Data: React.FC = () => {
 
   useEffect(() => {
     setAllowesUsers([userId]);
-    executeQuery<listMatchData>(getAllMatchData).then(
+    executeQuery<ListMatchData>(getAllMatchData).then(
       (response) => response && setData(response.listMatchData.items)
     );
   }, []);
