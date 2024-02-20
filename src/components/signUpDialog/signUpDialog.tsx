@@ -11,6 +11,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import executeQuery from "../../graphql/graphqlClient.js";
 import { createUser } from "../../graphql/userQueries.js";
+import SelectTeam from "../selectTeam/selectTeam.js";
+import { UserInput } from "../../graphql/interfaces.js";
 
 const SIGN_UP = "Sign Up";
 
@@ -29,18 +31,23 @@ const SignUpDialog: React.FC<SignUpDialogProps> = (props) => {
   const [lastName, setLastName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [team, setTeam] = useState<string>("");
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const addUser = () => {
-    const newUSer = {
-      'firstName': firstName,
-      'lastName': lastName,
-      'username': username,
-      'password': password
+    const newUser: UserInput = {
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      password: password,
     };
 
-    executeQuery(createUser, {'input': newUSer});
+    if (team) {
+      newUser.team = team;
+    }
+
+    executeQuery(createUser, { input: newUser });
     setOpen(false);
   };
 
@@ -83,6 +90,7 @@ const SignUpDialog: React.FC<SignUpDialogProps> = (props) => {
             ),
           }}
         />
+        <SelectTeam team={team} setTeam={setTeam} />
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpen(false)}>{CANCEL}</Button>

@@ -37,3 +37,11 @@ export interface CreateTeam {
         id: string;
     };
 };
+
+export interface UserInput {
+    firstName: string;
+    lastName: string;
+    username: string;
+    password: string;
+    team?: string | null;
+};

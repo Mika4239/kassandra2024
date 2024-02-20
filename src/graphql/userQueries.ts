@@ -15,6 +15,7 @@ query getUserByLogin($username: String!, $password: String!) {
             lastName
             username
             password
+            team
         }
     }
 }  
