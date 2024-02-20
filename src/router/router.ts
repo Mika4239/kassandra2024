@@ -6,11 +6,16 @@ import Teleop from "../views/teleop/teleop";
 import Endgame from "../views/endgame/endgame";
 import Comments from "../views/comments/comments";
 import Data from "../views/data/data";
+import Teams from "../views/teams/teams";
 
 const router = createBrowserRouter([
     {
         path: '/',
         Component: Home
+    },
+    {
+        path: '/teams',
+        Component: Teams
     },
     {
         path: '/data',

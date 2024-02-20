@@ -17,6 +17,10 @@ const useStyles = makeStyles()({
         fontSize: '30px',
         color: '#ff9c34' 
     },
+    shootingPositions: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
     countButtons: {
         display: 'flex'
     },

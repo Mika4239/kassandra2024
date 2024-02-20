@@ -4,4 +4,5 @@ interface User {
     lastName: string;
     username: string;
     password: string;
+    team?: string | null;
 }

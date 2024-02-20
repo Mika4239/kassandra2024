@@ -23,6 +23,7 @@ const MAIN_TITLES = [
   "",
   "",
   "",
+  "",
   "endgame",
   "",
   "",
@@ -46,6 +47,7 @@ const SUB_TITLES = [
   "",
   "amp",
   "",
+  "shootingPositions",
   "stage",
   "spotlit",
   "trap",
@@ -172,6 +174,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
                 <TableCell>{row.teleop.speaker.fail}</TableCell>
                 <TableCell>{row.teleop.amp.success}</TableCell>
                 <TableCell>{row.teleop.amp.fail}</TableCell>
+                <TableCell>{row.teleop.shootingPositions.join(', ')}</TableCell>
                 <TableCell>{row.endgame.stage}</TableCell>
                 <TableCell>{String(row.endgame.spotlit)}</TableCell>
                 <TableCell>{String(row.endgame.trap)}</TableCell>

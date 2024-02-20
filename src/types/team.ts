@@ -1,8 +1,9 @@
 interface Team {
-    id: string;
+    id?: string;
     name: string;
     number: number;
     description: string;
     image: string;
     admin: string[];
+    users?: User[];
 }
