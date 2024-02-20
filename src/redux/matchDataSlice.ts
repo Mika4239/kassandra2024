@@ -38,7 +38,7 @@ const initialState: MatchData = {
     trap: false,
   },
   comments: {
-    defence: "",
+    defense: "",
     penalties: "",
     other: "",
   },

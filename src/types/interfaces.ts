@@ -10,7 +10,7 @@ export interface SelectMatchState {
 };
 
 export interface CommentsState { 
-    defence: string;
+    defense: string;
     penalties: string;
     other: string;
 }

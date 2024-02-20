@@ -10,14 +10,14 @@ const PREV_PATH = "endgame";
 const NEXT_PATH = "select";
 
 const COMMENTS_TITLE = "Comments";
-const DEFENCE_TITLE = "Defence";
+const DEFENSE_TITLE = "Defense";
 const PENALTIES_TITLE = "Penalties";
 const OTHER_TITLE = "Other";
 
 const Comments: React.FC = () => {
   const { classes } = useStyles();
 
-  const defence = useAppSelector((state) => state.matchData.comments.defence);
+  const defense = useAppSelector((state) => state.matchData.comments.defense);
   const penalties = useAppSelector(
     (state) => state.matchData.comments.penalties
   );
@@ -30,15 +30,15 @@ const Comments: React.FC = () => {
       <NavBar />
       <div className={classes.commentsPage}>
         <h1 className={classes.mainTitle}>{COMMENTS_TITLE}</h1>
-        <h2 className={classes.subTitle}>{DEFENCE_TITLE}</h2>
+        <h2 className={classes.subTitle}>{DEFENSE_TITLE}</h2>
         <Textarea
           size="lg"
           minRows={5}
           style={{ width: "30%" }}
-          value={defence}
+          value={defense}
           onChange={(event) =>
             dispatch(
-              setComments({ name: "defence", input: event.target.value })
+              setComments({ name: "defense", input: event.target.value })
             )
           }
         />

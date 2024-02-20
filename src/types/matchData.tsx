@@ -31,7 +31,7 @@ interface MatchData {
         trap: boolean;
     };
     comments: {
-        defence: string;
+        defense: string;
         penalties: string;
         other: string;
     };

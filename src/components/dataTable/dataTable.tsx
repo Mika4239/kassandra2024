@@ -49,7 +49,7 @@ const SUB_TITLES = [
   "stage",
   "spotlit",
   "trap",
-  "defence",
+  "defense",
   "penalties",
   "other"
 ];
@@ -124,7 +124,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
             "," +
             row.endgame.trap +
             "," +
-            row.comments.defence +
+            row.comments.defense +
             "," + 
             row.comments.penalties +
             "," +
@@ -175,7 +175,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
                 <TableCell>{row.endgame.stage}</TableCell>
                 <TableCell>{String(row.endgame.spotlit)}</TableCell>
                 <TableCell>{String(row.endgame.trap)}</TableCell>
-                <TableCell>{row.comments.defence}</TableCell>
+                <TableCell>{row.comments.defense}</TableCell>
                 <TableCell>{row.comments.penalties}</TableCell>
                 <TableCell>{row.comments.other}</TableCell>
               </TableRow>

@@ -42,7 +42,7 @@ export const getAllMatchData = `
                 trap
             }
             comments{
-                defence
+                defense
                 penalties
                 other 
             }
