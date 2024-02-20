@@ -84,7 +84,7 @@ const Data: React.FC = () => {
       <div className={classes.dataPage}>
         <h1 className={classes.mainTitle}>{DATA_TITLE}</h1>
         <Tabs
-          onChange={(event, value) => changedAllowedData(value)}
+          onChange={(_event, value) => changedAllowedData(value)}
           defaultValue="my"
         >
           <TabList>
