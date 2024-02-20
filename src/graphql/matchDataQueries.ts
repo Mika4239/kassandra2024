@@ -13,6 +13,7 @@ export const getAllMatchData = `
             event
             match
             team
+            user
             autonomous{
                 leave
                 speaker{
@@ -41,7 +42,7 @@ export const getAllMatchData = `
                 trap
             }
             comments{
-                defence
+                defense
                 penalties
                 other 
             }
