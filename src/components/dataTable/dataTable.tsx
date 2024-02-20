@@ -110,7 +110,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
             "," +
             row.autonomous.amp.fail +
             "," +
-            row.autonomous.ringsCollected +
+            row.autonomous.ringsCollected.join(' ') +
             "," +
             row.teleop.speaker.success +
             "," +
@@ -119,6 +119,8 @@ const DataTable: React.FC<DataTableProps> = (props) => {
             row.teleop.amp.success +
             "," +
             row.teleop.amp.fail +
+            "," +
+            row.teleop.shootingPositions.join(' ') +
             "," +
             row.endgame.stage +
             "," +
