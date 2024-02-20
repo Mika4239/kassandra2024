@@ -6,16 +6,23 @@ import NavigationButtons from "../../components/navigationButtons/navigationButt
 import { useAppSelector } from "../../redux/hooks";
 import { useDispatch } from "react-redux";
 import {
+  addShootingPosition,
+  removeShootingPosition,
   setTeleopAmpFail,
   setTeleopAmpSuccess,
   setTeleopSpeakerFail,
   setTeleopSpeakerSuccess,
 } from "../../redux/matchDataSlice";
 import NavBar from "../../components/navBar/navBar";
+import { Checkbox, Typography } from "@mui/joy";
 
 const TELEOP_TITLE = "Teleop";
 const SPEAKER_TITLE = "Speaker";
 const AMP_TITLE = "Amp";
+const SHOOTING_POSITIONS_TITLE = "Shooting Positions";
+
+const POSITIONS_HELPING_TEXT = "Choose the options closest to these areas:";
+const SHOOTING_POSITIONS = ["none", "wing", "Safe zones", "center line"];
 
 const SUCCESS_TITLE = "Success";
 const FAIL_TITLE = "Fail";
@@ -37,13 +44,49 @@ const Teleop: React.FC = () => {
   );
   const ampFail = useAppSelector((state) => state.matchData.teleop.amp.fail);
 
+  const shootingPosition = useAppSelector(
+    (state) => state.matchData.teleop.shootingPositions
+  );
+
   const dispatch = useDispatch();
+
+  const handleShootingPositions = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    position: string
+  ) => {
+    if (position === "none") {
+      shootingPosition.forEach((position) =>
+        dispatch(removeShootingPosition(position))
+      );
+      dispatch(addShootingPosition(position));
+    } else {
+      dispatch(removeShootingPosition("none"));
+      event.target.checked
+        ? dispatch(addShootingPosition(position))
+        : dispatch(removeShootingPosition(position));
+    }
+  };
 
   return (
     <>
       <NavBar />
       <div className={classes.teleopPage}>
         <h1 className={classes.mainTitle}>{TELEOP_TITLE}</h1>
+        <h2 className={classes.subTitle}>{SHOOTING_POSITIONS_TITLE}</h2>
+        <div className={classes.shootingPositions}>
+          <Typography fontSize="20px">{POSITIONS_HELPING_TEXT}</Typography>
+          {SHOOTING_POSITIONS.map((position) => (
+            <Checkbox
+              label={position.toUpperCase()}
+              checked={
+                shootingPosition.find(
+                  (shootingPosition) => shootingPosition == position
+                ) !== undefined
+              }
+              onChange={(event) => handleShootingPositions(event, position)}
+            />
+          ))}
+        </div>
         <h2 className={classes.subTitle}>{SPEAKER_TITLE}</h2>
         <div className={classes.countButtons}>
           <div className={classes.successButton}>

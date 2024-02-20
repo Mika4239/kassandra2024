@@ -27,6 +27,7 @@ export const getAllMatchData = `
                 ringsCollected
             }
             teleop{
+                shootingPositions
                 speaker{
                     success
                     fail

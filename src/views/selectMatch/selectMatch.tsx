@@ -4,9 +4,10 @@ import useStyles from "./selectMatchStyles";
 import { getTBAData } from "../../utils/general";
 import { translateMatch, translateTeam } from "../../utils/translations";
 import Button from "@mui/material/Button/Button";
-import { NavLink } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 import NavBar from "../../components/navBar/navBar";
+import { FormControl } from "@mui/material";
+import { useNavigate } from "react-router";
 
 const SELECT_TITLE = "Select Match";
 
@@ -15,7 +16,7 @@ const MATCH = "match";
 const TEAM = "team";
 
 const START_BUTTON = "Start";
-const AUTONOMOUS_PATH = "autonomous";
+const AUTONOMOUS_PATH = "/autonomous";
 
 const SelectMatch: React.FC = () => {
   const { classes } = useStyles();
@@ -27,6 +28,8 @@ const SelectMatch: React.FC = () => {
   const event = useAppSelector((state) => state.matchData.event);
   const match = useAppSelector((state) => state.matchData.match);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getTBAData<Event[]>("https://www.thebluealliance.com/api/v3/events/2024")
       .catch((error) => console.log(error))
@@ -34,23 +37,24 @@ const SelectMatch: React.FC = () => {
   }, []);
 
   useMemo(() => {
-    event !== '' && getTBAData<Match[]>(
-      `https://www.thebluealliance.com/api/v3/event/${event}/matches/simple`
-    )
-      .catch((error) => console.log(error))
-      .then(
-        (response) =>
-          response &&
-          setMatches(
-            response
-              .sort((a, b) => a.predicted_time - b.predicted_time)
-              .map((event) => event.key)
-          )
-      );
+    events.find((eventItem) => eventItem.key === event) !== undefined &&
+      getTBAData<Match[]>(
+        `https://www.thebluealliance.com/api/v3/event/${event}/matches/simple`
+      )
+        .catch((error) => console.log(error))
+        .then(
+          (response) =>
+            response &&
+            setMatches(
+              response
+                .sort((a, b) => a.predicted_time - b.predicted_time)
+                .map((event) => event.key)
+            )
+        );
   }, [event]);
 
   useMemo(() => {
-    match !== "" &&
+    matches.find((matchItem) => matchItem === match) !== undefined &&
       getTBAData<Match>(
         `https://www.thebluealliance.com/api/v3/match/${match}/simple`
       )
@@ -70,31 +74,41 @@ const SelectMatch: React.FC = () => {
     return events.find((event) => event.key == key)?.name || "";
   };
 
+  const startMatch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    navigate(AUTONOMOUS_PATH);
+  }
+
   return (
     <>
       <NavBar />
       <div className={classes.selectPage}>
         <h1 className={classes.mainTitle}>{SELECT_TITLE}</h1>
-        <SelectFromData
-          name={EVENT}
-          data={events.map((event) => event.key)}
-          dataTranslate={translateEvent}
-        />
-        <SelectFromData
-          name={MATCH}
-          data={matches}
-          dataTranslate={translateMatch}
-        />
-        <SelectFromData
-          name={TEAM}
-          data={teams}
-          dataTranslate={translateTeam}
-        />
-        <NavLink to={"/" + AUTONOMOUS_PATH}>
-          <Button variant="contained" className={classes.startButton}>
+        <FormControl component="form" onSubmit={startMatch}>
+          <SelectFromData
+            name={EVENT}
+            data={events.map((event) => event.key)}
+            dataTranslate={translateEvent}
+          />
+          <SelectFromData
+            name={MATCH}
+            data={matches}
+            dataTranslate={translateMatch}
+          />
+          <SelectFromData
+            name={TEAM}
+            data={teams}
+            dataTranslate={translateTeam}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.startButton}
+          >
             {START_BUTTON}
           </Button>
-        </NavLink>
+        </FormControl>
       </div>
     </>
   );

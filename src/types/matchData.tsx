@@ -16,6 +16,7 @@ interface MatchData {
         ringsCollected: number[];
     };
     teleop: {
+        shootingPositions: string[];
         speaker: {
             success: number;
             fail: number;
