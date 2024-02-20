@@ -6,6 +6,7 @@ import { Dropdown, Menu, MenuButton } from "@mui/joy";
 import { Logout } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { resetUser } from "../../redux/userSlice.js";
+import { resetAllMatchData } from "../../redux/matchDataSlice.js";
 
 const SCOUTING_PATH = "/select";
 const DATA_PATH = "/data";
@@ -24,6 +25,7 @@ const NavBar: React.FC = () => {
   const navigate = useNavigate();
 
   const logout = () => {
+    dispatch(resetAllMatchData());
     dispatch(resetUser());
     navigate('/');
   }
