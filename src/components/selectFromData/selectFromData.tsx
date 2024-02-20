@@ -1,7 +1,7 @@
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import useStyles from "./selectFromDataStyles";
 import { useAppSelector } from "../../redux/hooks";
 import { SelectMatchState } from "../../types/interfaces";
@@ -19,7 +19,7 @@ const SelectFromData: React.FC<SelectFromDataProps> = (props) => {
   );
   const dispatch = useDispatch();
 
-  const [isOther, setIsOther] = useState<boolean>(data.find((item) => item === chosen) === undefined);
+  const [isOther, setIsOther] = useState<boolean>(false);
 
   return (
     <FormControl className={classes.selectBox}>
@@ -29,9 +29,11 @@ const SelectFromData: React.FC<SelectFromDataProps> = (props) => {
         labelId={name + "-label"}
         value={isOther ? "other" : chosen}
         label={name}
-        onChange={(e) => {
-          setIsOther(e.target.value === 'other');
-          dispatch(setMatchTeam({ name: name, input: e.target.value }));
+        onChange={(e: SelectChangeEvent<string>) => {
+          setIsOther(e.target.value === "other");
+          e.target.value !== "other" && dispatch(
+            setMatchTeam({ name: name, input: e.target.value })
+          );
         }}
       >
         {data.map((item, index) => (
@@ -39,20 +41,21 @@ const SelectFromData: React.FC<SelectFromDataProps> = (props) => {
             {dataTranslate(item, index)}
           </MenuItem>
         ))}
-        <MenuItem key="other" value="other">other</MenuItem>
+        <MenuItem key="other" value="other">
+          other
+        </MenuItem>
       </Select>
-      {isOther &&
+      {isOther && (
         <TextField
-          label="Other Option"
-          name="otherOption"
+          label="Other"
           value={chosen}
-          onChange={(e) => dispatch(setMatchTeam({ name: name, input: e.target.value }))}
-          variant="outlined"
-          fullWidth
+          onChange={(e) => 
+            dispatch(setMatchTeam({ name: name, input: e.target.value }))
+          }
           margin="normal"
           required
         />
-      }
+      )}
     </FormControl>
   );
 };
