@@ -8,6 +8,8 @@ import { useAppSelector } from "../../redux/hooks";
 import NavBar from "../../components/navBar/navBar";
 import { FormControl } from "@mui/material";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { resetMatchData } from "../../redux/matchDataSlice";
 
 const SELECT_TITLE = "Select Match";
 
@@ -28,6 +30,7 @@ const SelectMatch: React.FC = () => {
   const event = useAppSelector((state) => state.matchData.event);
   const match = useAppSelector((state) => state.matchData.match);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,6 +80,7 @@ const SelectMatch: React.FC = () => {
   const startMatch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    dispatch(resetMatchData());
     navigate(AUTONOMOUS_PATH);
   }
 
