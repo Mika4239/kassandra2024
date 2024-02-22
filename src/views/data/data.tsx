@@ -10,6 +10,7 @@ import { ListMatchData, ListUsersByTeam } from "../../graphql/interfaces";
 import { useAppSelector } from "../../redux/hooks";
 import { TabList, Tab, Tabs } from "@mui/joy";
 import { getUsersByTeam } from "../../graphql/userQueries";
+import QrReader from "../../components/qrReader/qrReader";
 
 const DATA_TITLE = "Data";
 
@@ -83,6 +84,8 @@ const Data: React.FC = () => {
       <NavBar />
       <div className={classes.dataPage}>
         <h1 className={classes.mainTitle}>{DATA_TITLE}</h1>
+        <QrReader />
+        <h2 className={classes.subTitle}>{TABLE_TITLE}</h2>
         <Tabs
           onChange={(_event, value) => changedAllowedData(value)}
           defaultValue="my"
@@ -95,7 +98,6 @@ const Data: React.FC = () => {
             ))}
           </TabList>
         </Tabs>
-        <h2 className={classes.subTitle}>{TABLE_TITLE}</h2>
         <DataTable data={filteredData} />
         <h2 className={classes.subTitle}>{GRAPH_TITLE}</h2>
         <div className={classes.graph}>

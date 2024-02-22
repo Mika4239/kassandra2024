@@ -5,6 +5,7 @@ import { useAppSelector } from "../../redux/hooks";
 import { useDispatch } from "react-redux";
 import { setComments } from "../../redux/matchDataSlice";
 import NavBar from "../../components/navBar/navBar";
+import QrDialog from "../../components/qrDialog/qrDialog";
 
 const PREV_PATH = "endgame";
 const NEXT_PATH = "select";
@@ -64,6 +65,7 @@ const Comments: React.FC = () => {
             dispatch(setComments({ name: "other", input: event.target.value }))
           }
         />
+        <QrDialog />
         <NavigationButtons prevPath={PREV_PATH} nextPath={NEXT_PATH} />
       </div>
     </>
