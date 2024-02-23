@@ -9,6 +9,7 @@ import { Cameraswitch } from "@mui/icons-material";
 
 const ADD_DATA = "Add data from qr code";
 const SAVE_DATA = "Save data";
+const SEND_OFFLINE_DATA = "Send offline data";
 
 const QrReader: React.FC = () => {
   const { classes } = useStyles();
@@ -45,16 +46,51 @@ const QrReader: React.FC = () => {
   };
 
   const saveData = (e: HTMLButtonElement) => {
-    data &&
-      executeQuery(createMatchData, { input: JSON.parse(data) }).then(
-        (response) => {
-          if (response) {
-            console.log(`'Got data: ${data}`);
-            setData("");
-            e.textContent = "Saved";
+    if (navigator.onLine) {
+      data &&
+        executeQuery(createMatchData, { input: JSON.parse(data) }).then(
+          (response) => {
+            if (response) {
+              console.log(`Got data: ${data}`);
+              setData("");
+              e.textContent = "Saved";
+            }
           }
-        }
-      );
+        );
+    } else {
+      if (data) {
+        document.cookie = `offlinedata=${data}`;
+        setData("");
+        e.textContent = "Saved offline";
+      }
+    }
+  };
+
+  const sendOfflineData = () => {
+    const offlineData = getOfflineData();
+    console.log(offlineData);
+    if (offlineData && offlineData.length > 0) {
+      executeQuery(createMatchData, { input: JSON.parse(offlineData)})
+    } else {
+      console.log("No offline data to send");
+    }
+  };
+
+  const getOfflineData = (): string[] => {
+    const cookies = document.cookie.split("; ");
+    const offlineDataCookie = cookies.find(
+      (cookie) => cookie.startsWith("offlinedata=")
+    );
+    if (offlineDataCookie) {
+      const offlineDataString = offlineDataCookie.split("=")[1];
+      return offlineDataString.split(",");
+    }
+    return [];
+  };
+
+  const removeOfflineData = () => {
+    document.cookie = "offlinedata=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    console.log("cleared offline data");
   };
 
   useEffect(() => {
@@ -78,6 +114,15 @@ const QrReader: React.FC = () => {
       >
         {SAVE_DATA}
       </Button>
+      <Button
+        className={classes.qrButton}
+        onClick={() => sendOfflineData()}
+      >
+        {SEND_OFFLINE_DATA}
+      </Button>
+      <Button className={classes.qrButton} onClick={() => removeOfflineData()}>
+        Clear offline data
+      </Button>
       <Dialog maxWidth="lg" open={open} onClose={() => setOpen(false)}>
         <DialogContent className={classes.dialog}>
           <Webcam
@@ -86,7 +131,7 @@ const QrReader: React.FC = () => {
             height={1000}
             screenshotFormat="image/jpeg"
             audio={false}
-            videoConstraints={{facingMode: isFront ? 'user' : {exact: 'environment'}}}
+            videoConstraints={{ facingMode: isFront ? 'user' : { exact: 'environment' } }}
           />
           <IconButton onClick={() => setIsFront(prev => !prev)}>
             <Cameraswitch />
