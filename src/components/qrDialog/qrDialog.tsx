@@ -29,7 +29,7 @@ const QrDialog: React.FC = () => {
       >
         <DialogContent className={classes.dialog}>
             <DialogTitle className={classes.mainTitle}>{QR_TITLE}</DialogTitle>
-            <QRCode size={800} value={JSON.stringify(matchData)} />
+            <QRCode size={200} value={JSON.stringify(matchData)} />
         </DialogContent>
       </Dialog>
     </>
