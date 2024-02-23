@@ -64,7 +64,7 @@ const QrReader: React.FC = () => {
         cancelAnimationFrame(requestRef.current);
       }
     };
-  }, []);
+  }, [open]);
 
   return (
     <>
