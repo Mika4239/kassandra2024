@@ -45,7 +45,9 @@ const useStyles = makeStyles()({
         marginBottom: '200px'
     },
     fieldImage: {
-        width: '700px'
+        width: '700px',
+        minHeight: '300px',
+        backgroundColor: 'gray'
     },
     ring1: {
         position: 'relative',

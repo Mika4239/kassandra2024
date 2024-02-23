@@ -1,10 +1,11 @@
-import { Dialog, Button, DialogContent } from "@mui/material";
+import { Dialog, Button, DialogContent, IconButton } from "@mui/material";
 import jsQR from "jsqr";
 import { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import useStyles from "./qrReaderStyles";
 import executeQuery from "../../graphql/graphqlClient";
 import { createMatchData } from "../../graphql/matchDataQueries";
+import { Cameraswitch } from "@mui/icons-material";
 
 const ADD_DATA = "Add data from qr code";
 const SAVE_DATA = "Save data";
@@ -13,6 +14,8 @@ const QrReader: React.FC = () => {
   const { classes } = useStyles();
 
   const [open, setOpen] = useState<boolean>(false);
+  const [isFront, setIsFront] = useState<boolean>(true);
+
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<string | null>(null);
   const webcamRef = useRef<Webcam | null>(null);
@@ -83,7 +86,11 @@ const QrReader: React.FC = () => {
             height={1000}
             screenshotFormat="image/jpeg"
             audio={false}
+            videoConstraints={{facingMode: isFront ? 'user' : {exact: 'environment'}}}
           />
+          <IconButton onClick={() => setIsFront(prev => !prev)}>
+            <Cameraswitch />
+          </IconButton>
           {error && <p>{error}</p>}
         </DialogContent>
       </Dialog>
