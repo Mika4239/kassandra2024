@@ -59,7 +59,9 @@ const QrReader: React.FC = () => {
         );
     } else {
       if (data) {
-        document.cookie = `offlinedata=${data}`;
+        const offlineData = getOfflineData();
+        offlineData.push(data);
+        document.cookie = `offlinedata=${JSON.stringify(offlineData)}`;
         setData("");
         e.textContent = "Saved offline";
       }
@@ -70,7 +72,14 @@ const QrReader: React.FC = () => {
     const offlineData = getOfflineData();
     console.log(offlineData);
     if (offlineData && offlineData.length > 0) {
-      executeQuery(createMatchData, { input: JSON.parse(offlineData)})
+      console.log("sending offline data");
+      offlineData.forEach(data => {
+        console.log(JSON.parse(data));
+      })
+      offlineData.forEach(data => {
+        executeQuery(createMatchData, { input: JSON.parse(data)});
+      })
+      removeOfflineData();
     } else {
       console.log("No offline data to send");
     }
@@ -83,7 +92,7 @@ const QrReader: React.FC = () => {
     );
     if (offlineDataCookie) {
       const offlineDataString = offlineDataCookie.split("=")[1];
-      return offlineDataString.split(",");
+      return JSON.parse(offlineDataString);
     }
     return [];
   };
