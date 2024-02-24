@@ -51,6 +51,7 @@ const QrReader: React.FC = () => {
         executeQuery(createMatchData, { input: JSON.parse(data) }).then(
           (response) => {
             if (response) {
+              sendOfflineData();
               console.log(`Got data: ${data}`);
               setData("");
               e.textContent = "Saved";
