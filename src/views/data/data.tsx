@@ -11,6 +11,7 @@ import { useAppSelector } from "../../redux/hooks";
 import { TabList, Tab, Tabs } from "@mui/joy";
 import { getUsersByTeam } from "../../graphql/userQueries";
 import QrReader from "../../components/qrReader/qrReader";
+import { TextField } from "@mui/material";
 
 const DATA_TITLE = "Data";
 
@@ -19,6 +20,8 @@ const OPTIONS = ["my", "team", "all"];
 const TABLE_TITLE = "Table";
 const GRAPH_TITLE = "Graph";
 
+const SEARCH_TEAM = "Search team";
+
 const Data: React.FC = () => {
   const { classes } = useStyles();
 
@@ -26,6 +29,7 @@ const Data: React.FC = () => {
   const [filteredData, setFilteredData] = useState<MatchData[]>([]);
 
   const [graphKey, setGraphKey] = useState<string>("");
+  const [teamSearch, setTeamSearch] = useState<string>("");
 
   const user = useAppSelector((state) => state.user);
 
@@ -102,7 +106,14 @@ const Data: React.FC = () => {
         <h2 className={classes.subTitle}>{GRAPH_TITLE}</h2>
         <div className={classes.graph}>
           <SelectGraph setKey={setGraphKey} />
-          <DataGraph data={filteredData} graphKey={graphKey} />
+          <div>
+            <h2 className={classes.subTitle}>{SEARCH_TEAM}</h2>
+            <TextField
+              value={teamSearch}
+              onChange={(e) => setTeamSearch(e.target.value)}
+            />
+          </div>
+          <DataGraph data={filteredData} graphKey={graphKey} teamSearch={teamSearch} />
         </div>
       </div>
     </>
