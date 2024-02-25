@@ -15,7 +15,7 @@ interface GroupedData {
 }
 
 const DataGraph: React.FC<DataGraphProps> = (props) => {
-  const { data, graphKey } = props;
+  const { data, graphKey, teamSearch } = props;
 
   const [graphData, setGraphData] = useState<any[]>([]);
   const [barKeys, setBarKeys] = useState<string[]>([]);
@@ -25,7 +25,7 @@ const DataGraph: React.FC<DataGraphProps> = (props) => {
     setBarKeys([]);
     const useAverage = graphKey.includes("amp") || graphKey.includes("speaker");
     useAverage ? calculateAvg() : calculateSum();
-  }, [graphKey]);
+  }, [graphKey, teamSearch]);
 
   const findNestedValue = (object: any, key: string) => {
     const keys = key.split(".");
@@ -63,7 +63,7 @@ const DataGraph: React.FC<DataGraphProps> = (props) => {
           success: result[teamKey].success,
           fail: result[teamKey].fail,
         };
-      })
+      }).filter(data => data.team.includes(teamSearch))
     );
   };
 
@@ -106,7 +106,7 @@ const DataGraph: React.FC<DataGraphProps> = (props) => {
           team: teamKey,
           ...result[teamKey],
         };
-      })
+      }).filter(data => data.team.includes(teamSearch))
     );
   };
 
