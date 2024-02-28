@@ -85,7 +85,13 @@ const Data: React.FC = () => {
       <div className={classes.dataPage}>
         <h1 className={classes.mainTitle}>{DATA_TITLE}</h1>
         <QrReader />
-        <h2 className={classes.subTitle}>{TABLE_TITLE}</h2>
+        <h2 className={classes.subTitle}>{GRAPH_TITLE}</h2>
+        <div className={classes.graph}>
+          <SelectGraph setKey={setGraphKey} />
+          <DataGraph data={filteredData} graphKey={graphKey} />
+          <h2 className={classes.subTitle}>{TABLE_TITLE}</h2>
+          <DataTable data={filteredData} />
+        </div>
         <Tabs
           onChange={(_event, value) => changedAllowedData(value)}
           defaultValue="my"
@@ -98,12 +104,6 @@ const Data: React.FC = () => {
             ))}
           </TabList>
         </Tabs>
-        <DataTable data={filteredData} />
-        <h2 className={classes.subTitle}>{GRAPH_TITLE}</h2>
-        <div className={classes.graph}>
-          <SelectGraph setKey={setGraphKey} />
-          <DataGraph data={filteredData} graphKey={graphKey} />
-        </div>
       </div>
     </>
   );

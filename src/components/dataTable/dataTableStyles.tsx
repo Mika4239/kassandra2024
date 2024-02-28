@@ -5,7 +5,7 @@ const useStyles = makeStyles()({
         width: '90%'
     },
     download: {
-        display: 'flex',
+        display: 'grid',
         justifyContent: 'start',
         margin: '10px'
     },

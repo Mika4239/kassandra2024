@@ -20,7 +20,7 @@ const useStyles = makeStyles()({
     graph: {
         width: '80vw',
         height: '20px',
-        display: 'flex'
+        display: 'grid'
     }
 });
 
