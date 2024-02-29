@@ -21,7 +21,8 @@ const AUTONOMOUS_TITLE = "Autonomous";
 const LEAVE_TITLE = "Leave";
 const SPEAKER_TITLE = "Speaker";
 const AMP_TITLE = "Amp";
-
+const FOUL_TITLE = "Fouls"
+const TECH_FOUL_TITLE = "Tech Fouls";
 const SUCCESS_TITLE = "Success";
 const FAIL_TITLE = "Fail";
 const RINGS_TITLE = "Rings Collected";
@@ -132,6 +133,48 @@ const Autonomous: React.FC = () => {
           </div>
           <div className={classes.failButton}>
             <h3>{FAIL_TITLE}</h3>
+            <div>
+              <IconButton
+                onClick={() =>
+                  ampFail > 0 && dispatch(setAutonomousAmpFail(ampFail - 1))
+                }
+              >
+                <RemoveIcon />
+              </IconButton>
+              <>{ampFail.toString()}</>
+              <IconButton
+                onClick={() => dispatch(setAutonomousAmpFail(ampFail + 1))}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
+          </div>
+        </div>
+        <h2 className={classes.subTitle}>{FOUL_TITLE}</h2>
+        <div className={classes.countButtons}>
+          <div className={classes.successButton}>
+            <h3>{FOUL_TITLE}</h3>
+            <div>
+              <IconButton
+                onClick={() =>
+                  ampSuccess > 0 &&
+                  dispatch(setAutonomousAmpSuccess(ampSuccess - 1))
+                }
+              >
+                <RemoveIcon />
+              </IconButton>
+              <>{ampSuccess.toString()}</>
+              <IconButton
+                onClick={() =>
+                  dispatch(setAutonomousAmpSuccess(ampSuccess + 1))
+                }
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
+          </div>
+          <div className={classes.failButton}>
+            <h3>{TECH_FOUL_TITLE}</h3>
             <div>
               <IconButton
                 onClick={() =>
