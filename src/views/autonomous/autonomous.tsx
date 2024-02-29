@@ -13,6 +13,8 @@ import {
   addRingCollected,
   removeRingcollected,
   setLeave,
+  setFouls,
+  setTechFouls,
 } from "../../redux/matchDataSlice";
 import { useDispatch } from "react-redux";
 import NavBar from "../../components/navBar/navBar";
@@ -48,6 +50,14 @@ const Autonomous: React.FC = () => {
   );
   const ringsCollected = useAppSelector(
     (state) => state.matchData.autonomous.ringsCollected
+  );
+
+  const foulsCommited = useAppSelector(
+    (state) => state.matchData.fouls.fouls
+  );
+
+  const techFoulCommited = useAppSelector(
+    (state) => state.matchData.fouls.techFouls
   );
 
   const dispatch = useDispatch();
@@ -157,16 +167,16 @@ const Autonomous: React.FC = () => {
             <div>
               <IconButton
                 onClick={() =>
-                  ampSuccess > 0 &&
-                  dispatch(setAutonomousAmpSuccess(ampSuccess - 1))
+                  foulsCommited > 0 &&
+                  dispatch(setFouls(foulsCommited - 1))
                 }
               >
                 <RemoveIcon />
               </IconButton>
-              <>{ampSuccess.toString()}</>
+              <>{foulsCommited.toString()}</>
               <IconButton
                 onClick={() =>
-                  dispatch(setAutonomousAmpSuccess(ampSuccess + 1))
+                  dispatch(setFouls(foulsCommited + 1))
                 }
               >
                 <AddIcon />
@@ -178,14 +188,14 @@ const Autonomous: React.FC = () => {
             <div>
               <IconButton
                 onClick={() =>
-                  ampFail > 0 && dispatch(setAutonomousAmpFail(ampFail - 1))
+                  techFoulCommited > 0 && dispatch(setTechFouls(techFoulCommited - 1))
                 }
               >
                 <RemoveIcon />
               </IconButton>
-              <>{ampFail.toString()}</>
+              <>{techFoulCommited.toString()}</>
               <IconButton
-                onClick={() => dispatch(setAutonomousAmpFail(ampFail + 1))}
+                onClick={() => dispatch(setTechFouls(techFoulCommited + 1))}
               >
                 <AddIcon />
               </IconButton>
