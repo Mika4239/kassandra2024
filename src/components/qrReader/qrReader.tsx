@@ -10,6 +10,7 @@ import { Cameraswitch } from "@mui/icons-material";
 const ADD_DATA = "Add data from qr code";
 const SAVE_DATA = "Save data";
 const SEND_OFFLINE_DATA = "Send offline data";
+let cookieCounter = 0;
 
 const QrReader: React.FC = () => {
   const { classes } = useStyles();
@@ -60,11 +61,13 @@ const QrReader: React.FC = () => {
         );
     } else {
       if (data) {
-        const offlineData = getOfflineData();
-        offlineData.push(data);
-        document.cookie = `offlinedata=${JSON.stringify(offlineData)}`;
-        setData("");
-        e.textContent = "Saved offline";
+        // const offlineData = getOfflineData();
+        // offlineData.push(data);
+        // document.cookie = `offlinedata=${JSON.stringify(offlineData)}`;
+        // setData("");
+        // e.textContent = "Saved offline";
+        document.cookie = `offlinedata${cookieCounter}=${JSON.stringify(data)}`;
+        cookieCounter++;
       }
     }
   };
@@ -87,20 +90,37 @@ const QrReader: React.FC = () => {
   };
 
   const getOfflineData = (): string[] => {
-    const cookies = document.cookie.split("; ");
-    const offlineDataCookie = cookies.find(
-      (cookie) => cookie.startsWith("offlinedata=")
-    );
-    if (offlineDataCookie) {
-      const offlineDataString = offlineDataCookie.split("=")[1];
-      return JSON.parse(offlineDataString);
+    // const cookies = document.cookie.split("; ");
+    // const offlineDataCookie = cookies.find(
+    //   (cookie) => cookie.startsWith("offlinedata=")
+    // );
+    // if (offlineDataCookie) {
+    //   const offlineDataString = offlineDataCookie.split("=")[1];
+    //   return JSON.parse(offlineDataString);
+    // }
+    // return [];
+    let offlinedata: string[] = []
+    const allCookies = document.cookie;
+    if (allCookies === "") return offlinedata;
+
+    var cookieArray = allCookies.split("; ");
+    for (var i = 0; i < cookieArray.length; i++) {
+        var cookie = cookieArray[i].split("=");
+        var cookieValue = decodeURIComponent(cookie[1]);
+        offlinedata.push(cookieValue);
     }
-    return [];
+    return offlinedata;
   };
 
   const removeOfflineData = () => {
-    document.cookie = "offlinedata=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    console.log("cleared offline data");
+    // document.cookie = "offlinedata=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // console.log("cleared offline data");
+    const cookies = document.cookie.split(";");
+    cookies.forEach(cookie => {
+      let eqp = cookie.indexOf("=");
+      const cookieName = eqp > -1 ? cookie.substring(0, eqp) : cookie;
+      document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+    });
   };
 
   useEffect(() => {
