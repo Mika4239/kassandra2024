@@ -29,11 +29,18 @@ interface MatchData {
     endgame: {
         stage: string;
         spotlit: boolean;
-        trap: boolean;
+        trap: {
+            tried: boolean;
+            succeeded: boolean;
+        }
     };
     comments: {
         defense: string;
         penalties: string;
         other: string;
     };
+    fouls: {
+        fouls: number;
+        techFouls: number;
+    }
 }

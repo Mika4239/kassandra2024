@@ -6,7 +6,7 @@ import Checkbox from "@mui/joy/Checkbox/Checkbox";
 import { FormControl } from "@mui/material";
 import { useAppSelector } from "../../redux/hooks";
 import { useDispatch } from "react-redux";
-import { setSpotlit, setStage, setTrap } from "../../redux/matchDataSlice";
+import { setSpotlit, setStage, setTrapSucceed, setTrapTried } from "../../redux/matchDataSlice";
 import NavBar from "../../components/navBar/navBar";
 
 const PREV_PATH = "teleop";
@@ -14,9 +14,9 @@ const NEXT_PATH = "comments";
 
 const ENDGAME_TITLE = "Endgame";
 const STAGE_TITLE = "Stage";
-const EXTRA_TITLE = "Extra";
+const EXTRA_TITLE = "Extra";  
 
-const STAGE_OPTIONS = ["NONE", "PARK", "ONSTAGE", "HARMONY"];
+const STAGE_OPTIONS = ["NONE", "PARK", "FAILED CLIMBING", "CLIMBED"];
 const EXTRA_OPTIONS = ["SPOTLIT", "TRAP"];
 
 const Endgame: React.FC = () => {
