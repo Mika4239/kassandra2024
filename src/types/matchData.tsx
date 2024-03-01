@@ -29,7 +29,10 @@ interface MatchData {
     endgame: {
         stage: string;
         spotlit: boolean;
-        trap: boolean;
+        trap: {
+            successed: boolean;
+            tried: boolean;
+        };
     };
     comments: {
         defense: string;
