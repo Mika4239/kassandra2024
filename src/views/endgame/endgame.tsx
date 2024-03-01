@@ -9,7 +9,7 @@ import Checkbox from "@mui/joy/Checkbox/Checkbox";
 import { FormControl } from "@mui/material";
 import { useAppSelector } from "../../redux/hooks";
 import { useDispatch } from "react-redux";
-import { setSpotlit, setStage, setTrap, setFouls, setTechFouls } from "../../redux/matchDataSlice";
+import { setSpotlit, setStage, setFouls, setTechFouls } from "../../redux/matchDataSlice";
 import NavBar from "../../components/navBar/navBar";
 
 const PREV_PATH = "teleop";
@@ -22,14 +22,13 @@ const FOUL_TITLE = "Fouls";
 const TECH_FOUL_TITLE = "Tech Fouls";
 
 const STAGE_OPTIONS = ["NONE", "PARK", "ONSTAGE", "HARMONY"];
-const EXTRA_OPTIONS = ["SPOTLIT", "TRAP"];
+const EXTRA_OPTIONS = ["SPOTLIT"];
 
 const Endgame: React.FC = () => {
   const { classes } = useStyles();
 
   const stage = useAppSelector((state) => state.matchData.endgame.stage);
   const spotlit = useAppSelector((state) => state.matchData.endgame.spotlit);
-  const trap = useAppSelector((state) => state.matchData.endgame.trap);
   const foulsCommited = useAppSelector((state) => state.matchData.fouls.fouls);
   const techFoulCommited = useAppSelector((state) => state.matchData.fouls.techFouls);
 
@@ -67,10 +66,9 @@ const Endgame: React.FC = () => {
               label={option}
               onChange={(event) =>
                 option === "SPOTLIT"
-                  ? dispatch(setSpotlit(event.target.checked))
-                  : dispatch(setTrap(event.target.checked))
+                  && dispatch(setSpotlit(event.target.checked))
               }
-              checked={option === "SPOTLIT" ? spotlit : trap}
+              checked={option === "SPOTLIT" ? spotlit : false}
             />
           ))}
         </div>
