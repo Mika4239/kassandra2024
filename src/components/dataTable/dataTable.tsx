@@ -53,7 +53,9 @@ const SUB_TITLES = [
   "trap",
   "defense",
   "penalties",
-  "other"
+  "other",
+  "fouls",
+  "techFouls"
 ];
 
 const GP_TITLES = [
@@ -133,6 +135,10 @@ const DataTable: React.FC<DataTableProps> = (props) => {
             row.comments.penalties +
             "," +
             row.comments.other +
+            "," +
+            row.fouls.fouls +
+            "," +
+            row.fouls.techFouls +
             ","
         )
         .join("\n");
@@ -183,6 +189,8 @@ const DataTable: React.FC<DataTableProps> = (props) => {
                 <TableCell>{row.comments.defense}</TableCell>
                 <TableCell>{row.comments.penalties}</TableCell>
                 <TableCell>{row.comments.other}</TableCell>
+                <TableCell>{row.fouls ? row.fouls.fouls : "N/A"}</TableCell>
+                <TableCell>{row.fouls ? row.fouls.techFouls : "N/A" }</TableCell>
               </TableRow>
             ))}
           </TableBody>
