@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import {
   addShootingPosition,
   removeShootingPosition,
+  setFouls,
+  setTechFouls,
   setTeleopAmpFail,
   setTeleopAmpSuccess,
   setTeleopSpeakerFail,
@@ -20,6 +22,8 @@ const TELEOP_TITLE = "Teleop";
 const SPEAKER_TITLE = "Speaker";
 const AMP_TITLE = "Amp";
 const SHOOTING_POSITIONS_TITLE = "Shooting Positions";
+const FOUL_TITLE = "Fouls";
+const TECH_FOUL_TITLE = "Tech Fouls";
 
 const POSITIONS_HELPING_TEXT = "Choose the options closest to these areas:";
 const SHOOTING_POSITIONS = ["none", "wing", "Safe zones", "center line"];
@@ -46,6 +50,14 @@ const Teleop: React.FC = () => {
 
   const shootingPosition = useAppSelector(
     (state) => state.matchData.teleop.shootingPositions
+  );
+
+  const foulsCommited = useAppSelector(
+    (state) => state.matchData.fouls.fouls
+  );
+
+  const techFoulCommited = useAppSelector(
+    (state) => state.matchData.fouls.techFouls
   );
 
   const dispatch = useDispatch();
@@ -163,6 +175,48 @@ const Teleop: React.FC = () => {
               <>{ampFail.toString()}</>
               <IconButton
                 onClick={() => dispatch(setTeleopAmpFail(ampFail + 1))}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
+          </div>
+        </div>
+        <h2 className={classes.subTitle}>{FOUL_TITLE}</h2>
+        <div className={classes.countButtons}>
+          <div className={classes.successButton}>
+            <h3>{FOUL_TITLE}</h3>
+            <div>
+              <IconButton
+                onClick={() =>
+                  foulsCommited > 0 &&
+                  dispatch(setFouls(foulsCommited - 1))
+                }
+              >
+                <RemoveIcon />
+              </IconButton>
+              <>{foulsCommited.toString()}</>
+              <IconButton
+                onClick={() =>
+                  dispatch(setFouls(foulsCommited + 1))
+                }
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
+          </div>
+          <div className={classes.failButton}>
+            <h3>{TECH_FOUL_TITLE}</h3>
+            <div>
+              <IconButton
+                onClick={() =>
+                  techFoulCommited > 0 && dispatch(setTechFouls(techFoulCommited - 1))
+                }
+              >
+                <RemoveIcon />
+              </IconButton>
+              <>{techFoulCommited.toString()}</>
+              <IconButton
+                onClick={() => dispatch(setTechFouls(techFoulCommited + 1))}
               >
                 <AddIcon />
               </IconButton>

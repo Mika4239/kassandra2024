@@ -1,4 +1,7 @@
 import useStyles from "./endgameStyles";
+import IconButton from "@mui/material/IconButton/IconButton";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import Radio from "@mui/joy/Radio/Radio";
 import NavigationButtons from "../../components/navigationButtons/navigationButtons";
 import RadioGroup from "@mui/joy/RadioGroup/RadioGroup";
@@ -6,7 +9,7 @@ import Checkbox from "@mui/joy/Checkbox/Checkbox";
 import { FormControl } from "@mui/material";
 import { useAppSelector } from "../../redux/hooks";
 import { useDispatch } from "react-redux";
-import { setSpotlit, setStage, setTrap } from "../../redux/matchDataSlice";
+import { setSpotlit, setStage, setTrap, setFouls, setTechFouls } from "../../redux/matchDataSlice";
 import NavBar from "../../components/navBar/navBar";
 
 const PREV_PATH = "teleop";
@@ -15,6 +18,8 @@ const NEXT_PATH = "comments";
 const ENDGAME_TITLE = "Endgame";
 const STAGE_TITLE = "Stage";
 const EXTRA_TITLE = "Extra";
+const FOUL_TITLE = "Fouls";
+const TECH_FOUL_TITLE = "Tech Fouls";
 
 const STAGE_OPTIONS = ["NONE", "PARK", "ONSTAGE", "HARMONY"];
 const EXTRA_OPTIONS = ["SPOTLIT", "TRAP"];
@@ -25,6 +30,8 @@ const Endgame: React.FC = () => {
   const stage = useAppSelector((state) => state.matchData.endgame.stage);
   const spotlit = useAppSelector((state) => state.matchData.endgame.spotlit);
   const trap = useAppSelector((state) => state.matchData.endgame.trap);
+  const foulsCommited = useAppSelector((state) => state.matchData.fouls.fouls);
+  const techFoulCommited = useAppSelector((state) => state.matchData.fouls.techFouls);
 
   const dispatch = useDispatch();
 
@@ -66,6 +73,48 @@ const Endgame: React.FC = () => {
               checked={option === "SPOTLIT" ? spotlit : trap}
             />
           ))}
+        </div>
+        <h2 className={classes.subTitle}>{FOUL_TITLE}</h2>
+        <div className={classes.countButtons}>
+          <div className={classes.successButton}>
+            <h3>{FOUL_TITLE}</h3>
+            <div>
+              <IconButton
+                onClick={() =>
+                  foulsCommited > 0 &&
+                  dispatch(setFouls(foulsCommited - 1))
+                }
+              >
+                <RemoveIcon />
+              </IconButton>
+              <>{foulsCommited.toString()}</>
+              <IconButton
+                onClick={() =>
+                  dispatch(setFouls(foulsCommited + 1))
+                }
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
+          </div>
+          <div className={classes.failButton}>
+            <h3>{TECH_FOUL_TITLE}</h3>
+            <div>
+              <IconButton
+                onClick={() =>
+                  techFoulCommited > 0 && dispatch(setTechFouls(techFoulCommited - 1))
+                }
+              >
+                <RemoveIcon />
+              </IconButton>
+              <>{techFoulCommited.toString()}</>
+              <IconButton
+                onClick={() => dispatch(setTechFouls(techFoulCommited + 1))}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
+          </div>
         </div>
         <NavigationButtons prevPath={PREV_PATH} nextPath={NEXT_PATH} />
       </div>

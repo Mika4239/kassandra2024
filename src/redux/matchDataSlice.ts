@@ -43,6 +43,10 @@ const initialState: MatchData = {
     penalties: "",
     other: "",
   },
+  fouls: {
+    fouls: 0,
+    techFouls: 0
+  }
 };
 
 export const matchDataSlice = createSlice({
@@ -135,6 +139,12 @@ export const matchDataSlice = createSlice({
       state.comments[action.payload.name as keyof CommentsState] =
         action.payload.input;
     },
+    setFouls: (state, action: PayloadAction<number>) => {
+      state.fouls.fouls = action.payload;
+    },
+    setTechFouls: (state, action: PayloadAction<number>) => {
+      state.fouls.techFouls = action.payload;
+    }
   },
 });
 
@@ -160,6 +170,8 @@ export const {
   setSpotlit,
   setTrap,
   setComments,
+  setFouls,
+  setTechFouls
 } = matchDataSlice.actions;
 
 export default matchDataSlice.reducer;

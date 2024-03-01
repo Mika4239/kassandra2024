@@ -36,4 +36,8 @@ interface MatchData {
         penalties: string;
         other: string;
     };
+    fouls: {
+        fouls: number;
+        techFouls: number;
+    }
 }
