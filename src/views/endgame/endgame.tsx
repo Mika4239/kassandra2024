@@ -3,7 +3,7 @@ import Radio from "@mui/joy/Radio/Radio";
 import NavigationButtons from "../../components/navigationButtons/navigationButtons";
 import RadioGroup from "@mui/joy/RadioGroup/RadioGroup";
 import Checkbox from "@mui/joy/Checkbox/Checkbox";
-import { FormControl } from "@mui/material";
+import { FormControl, breadcrumbsClasses } from "@mui/material";
 import { useAppSelector } from "../../redux/hooks";
 import { useDispatch } from "react-redux";
 import { setSpotlit, setStage, setTrapSucceed, setTrapTried } from "../../redux/matchDataSlice";
@@ -17,7 +17,7 @@ const STAGE_TITLE = "Stage";
 const EXTRA_TITLE = "Extra";  
 
 const STAGE_OPTIONS = ["NONE", "PARK", "FAILED CLIMBING", "CLIMBED"];
-const EXTRA_OPTIONS = ["SPOTLIT", "TRAP"];
+const EXTRA_OPTIONS = ["SPOTLIT", "TRAP TRIED", "TRAP SCORED"];
 
 const Endgame: React.FC = () => {
   const { classes } = useStyles();
@@ -58,12 +58,27 @@ const Endgame: React.FC = () => {
               disableIcon
               variant="solid"
               label={option}
-              onChange={(event) =>
-                option === "SPOTLIT"
-                  ? dispatch(setSpotlit(event.target.checked))
-                  : dispatch(setTrap(event.target.checked))
+              onChange={(event) => {
+                switch (option) {
+                  case "SPOTLIT":
+                    dispatch(setSpotlit(event.target.checked));
+                    break;
+                  case "TRAP TRIED":
+                    dispatch(setTrapTried(event.target.checked));
+                    break;
+                  case "TRAP SCORED":
+                    dispatch(setTrapSucceed(event.target.checked));
+                    break;
+                  default:
+                    break;
+                }
+              }}
+              checked={
+                option === "SPOTLIT" ? spotlit :
+                option === "TRAP TRIED" ? trap.tried :
+                option === "TRAP SCORED" ? trap.succeeded :
+                false
               }
-              checked={option === "SPOTLIT" ? spotlit : trap}
             />
           ))}
         </div>
