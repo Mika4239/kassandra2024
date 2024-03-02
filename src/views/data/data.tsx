@@ -109,7 +109,7 @@ const Data: React.FC = () => {
           <div>
             <h2 className={classes.subTitle}>{SEARCH_TEAM}</h2>
             <TextField
-              value={teamSearch}
+              value={teamSearch.length === 4 ? teamSearch : undefined}
               onChange={(e) => setTeamSearch(e.target.value)}
             />
           </div>
