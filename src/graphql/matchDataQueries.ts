@@ -54,3 +54,11 @@ export const getAllMatchData = `
     }
 }
 `;
+
+// add this after comments:
+/*
+fouls{
+    fouls
+    techFouls
+}
+*/

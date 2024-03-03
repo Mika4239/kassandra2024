@@ -38,9 +38,13 @@ const Data: React.FC = () => {
       if (response) {
         setData(response.listMatchData.items);
         setFilteredData(
-          response.listMatchData.items.filter(
-            (matchData) => matchData.user == user.id
-          )
+          response.listMatchData.items.map(matchData => ({
+            ...matchData,
+            fouls: {
+              fouls: matchData.fouls.fouls !== null ? matchData.fouls.fouls : 0,
+              techFouls: matchData.fouls.techFouls !== null ? matchData.fouls.techFouls : 0
+            }
+          })).filter(matchData => matchData.user === user.id)
         );
       }
     });

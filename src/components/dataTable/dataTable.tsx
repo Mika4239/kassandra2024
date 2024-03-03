@@ -141,11 +141,20 @@ const DataTable: React.FC<DataTableProps> = (props) => {
             "," +
             row.comments.other +
             "," +
-            row.fouls.fouls +
+            // (row.fouls.fouls === null || row.fouls.fouls === undefined) ? 0 : row.fouls.fouls +
+            // "," +
+            // (row.fouls.techFouls === null || row.fouls.techFouls === undefined) ? 0 : row.fouls.techFouls +
+            // ","
+            /************ NEW ^ OLD , */
+            // row.fouls.fouls +
+            // "," +
+            // row.fouls.techFouls +
+            // ","
+            0 +
             "," +
-            row.fouls.techFouls +
+            0 +
             ","
-        )
+        ) 
         .join("\n");
 
     window.open(encodeURI("data:text/csv;charset=utf-8," + csv));
