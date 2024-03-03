@@ -16,8 +16,10 @@
     "@mui/joy": "^5.0.0-beta.27",
     "@mui/material": "^5.15.10",
     "@reduxjs/toolkit": "^2.2.1",
+    "@types/node": "^20.11.24",
     "google-auth-library": "^9.6.3",
     "google-spreadsheet": "^4.1.1",
+    "googleapis": "^133.0.0",
     "graphql-request": "^6.1.0",
     "json-2-csv": "^5.5.0",
     "json2csv": "^6.0.0-alpha.2",
@@ -30,6 +32,7 @@
     "react-webcam": "^7.2.0",
     "recharts": "^2.12.0",
     "redux-persist": "^6.0.0",
+    "ts-node": "^10.9.2",
     "ts-transformer-keys": "^0.4.4",
     "tss-react": "^4.9.3"
   },
@@ -43,7 +46,7 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "typescript": "^5.0.2",
+    "typescript": "^5.3.3",
     "vite": "^4.4.5"
   }
 }

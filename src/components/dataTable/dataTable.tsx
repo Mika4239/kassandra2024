@@ -153,7 +153,6 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   };
   return (
     <div className={classes.container}>
-      <AddMatchToSheets/> 
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

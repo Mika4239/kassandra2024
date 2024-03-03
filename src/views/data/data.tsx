@@ -12,7 +12,7 @@ import { TabList, Tab, Tabs } from "@mui/joy";
 import { getUsersByTeam } from "../../graphql/userQueries";
 import QrReader from "../../components/qrReader/qrReader";
 import { TextField } from "@mui/material";
-import { AddMatchToSheets } from "../../components/sheetsSync/sheetsSync";
+import AddMatchToSheets from "../../components/sheetsSync/sheetsSync";
 
 const DATA_TITLE = "Data"; 
 
@@ -94,6 +94,7 @@ const Data: React.FC = () => {
       <div className={classes.dataPage}>
         <h1 className={classes.mainTitle}>{DATA_TITLE}</h1>
         <QrReader />
+        <AddMatchToSheets></AddMatchToSheets>
         <p>TEST PARAHRAPH</p>
         <h2 className={classes.subTitle}>{TABLE_TITLE}</h2>
         <Tabs
