@@ -43,8 +43,4 @@ interface MatchData {
         fouls: number;
         techFouls: number;
     }
-    fouls: {
-        fouls: number;
-        techFouls: number;
-    }
 }
