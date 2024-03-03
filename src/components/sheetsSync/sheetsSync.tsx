@@ -9,7 +9,7 @@ const addToSheets = async (data: string[][]) => {
     try {
         const auth = new google.auth.JWT({
             email: import.meta.env.VITE_CLIENT_EMAIL,
-            key: "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCeJ8QO/phkIzyw",
+            key: import.meta.env.VITE_PRIVATE_KEY,
             scopes: ["https://www.googleapis.com/auth/spreadsheet"]
         })
     
