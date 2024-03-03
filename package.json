@@ -16,7 +16,11 @@
     "@mui/joy": "^5.0.0-beta.27",
     "@mui/material": "^5.15.10",
     "@reduxjs/toolkit": "^2.2.1",
+    "google-auth-library": "^9.6.3",
+    "google-spreadsheet": "^4.1.1",
     "graphql-request": "^6.1.0",
+    "json-2-csv": "^5.5.0",
+    "json2csv": "^6.0.0-alpha.2",
     "jsqr": "^1.4.0",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
@@ -30,6 +34,7 @@
     "tss-react": "^4.9.3"
   },
   "devDependencies": {
+    "@types/json2csv": "^5.0.7",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

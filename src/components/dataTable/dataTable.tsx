@@ -8,6 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import useStyles from "./dataTableStyles.js";
+import AddMatchToSheets from "../sheetsSync/sheetsSync.js";
 
 const MAIN_TITLES = [
   "",
@@ -152,6 +153,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   };
   return (
     <div className={classes.container}>
+      <AddMatchToSheets/> 
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
