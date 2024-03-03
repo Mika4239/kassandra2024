@@ -31,14 +31,18 @@ interface MatchData {
         spotlit: boolean;
         trap: {
             tried: boolean;
-            succeeded: boolean;
-        }
+            succeeded: boolean
+        };
     };
     comments: {
         defense: string;
         penalties: string;
         other: string;
     };
+    fouls: {
+        fouls: number;
+        techFouls: number;
+    }
     fouls: {
         fouls: number;
         techFouls: number;

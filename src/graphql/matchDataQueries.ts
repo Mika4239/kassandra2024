@@ -40,7 +40,10 @@ export const getAllMatchData = `
             endgame{
                 stage
                 spotlit
-                trap
+                trap{
+                    successed
+                    tried
+                }
             }
             comments{
                 defense

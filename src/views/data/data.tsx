@@ -13,7 +13,7 @@ import { getUsersByTeam } from "../../graphql/userQueries";
 import QrReader from "../../components/qrReader/qrReader";
 import { TextField } from "@mui/material";
 
-const DATA_TITLE = "Data";
+const DATA_TITLE = "Data"; 
 
 const OPTIONS = ["my", "team", "all"];
 

@@ -13,6 +13,8 @@ import {
   addRingCollected,
   removeRingcollected,
   setLeave,
+  setFouls,
+  setTechFouls,
 } from "../../redux/matchDataSlice";
 import { useDispatch } from "react-redux";
 import NavBar from "../../components/navBar/navBar";
@@ -21,7 +23,8 @@ const AUTONOMOUS_TITLE = "Autonomous";
 const LEAVE_TITLE = "Leave";
 const SPEAKER_TITLE = "Speaker";
 const AMP_TITLE = "Amp";
-
+const FOUL_TITLE = "Fouls"
+const TECH_FOUL_TITLE = "Tech Fouls";
 const SUCCESS_TITLE = "Success";
 const FAIL_TITLE = "Fail";
 const RINGS_TITLE = "Rings Collected";
@@ -47,6 +50,14 @@ const Autonomous: React.FC = () => {
   );
   const ringsCollected = useAppSelector(
     (state) => state.matchData.autonomous.ringsCollected
+  );
+
+  const foulsCommited = useAppSelector(
+    (state) => state.matchData.fouls.fouls
+  );
+
+  const techFoulCommited = useAppSelector(
+    (state) => state.matchData.fouls.techFouls
   );
 
   const dispatch = useDispatch();
@@ -143,6 +154,48 @@ const Autonomous: React.FC = () => {
               <>{ampFail.toString()}</>
               <IconButton
                 onClick={() => dispatch(setAutonomousAmpFail(ampFail + 1))}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
+          </div>
+        </div>
+        <h2 className={classes.subTitle}>{FOUL_TITLE}</h2>
+        <div className={classes.countButtons}>
+          <div className={classes.successButton}>
+            <h3>{FOUL_TITLE}</h3>
+            <div>
+              <IconButton
+                onClick={() =>
+                  foulsCommited > 0 &&
+                  dispatch(setFouls(foulsCommited - 1))
+                }
+              >
+                <RemoveIcon />
+              </IconButton>
+              <>{foulsCommited.toString()}</>
+              <IconButton
+                onClick={() =>
+                  dispatch(setFouls(foulsCommited + 1))
+                }
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
+          </div>
+          <div className={classes.failButton}>
+            <h3>{TECH_FOUL_TITLE}</h3>
+            <div>
+              <IconButton
+                onClick={() =>
+                  techFoulCommited > 0 && dispatch(setTechFouls(techFoulCommited - 1))
+                }
+              >
+                <RemoveIcon />
+              </IconButton>
+              <>{techFoulCommited.toString()}</>
+              <IconButton
+                onClick={() => dispatch(setTechFouls(techFoulCommited + 1))}
               >
                 <AddIcon />
               </IconButton>

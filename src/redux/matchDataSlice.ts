@@ -37,7 +37,7 @@ const initialState: MatchData = {
     stage: "NONE",
     spotlit: false,
     trap: {
-      succeeded: false,
+      successed: false,
       tried: false
     },
   },
@@ -135,8 +135,8 @@ export const matchDataSlice = createSlice({
     setSpotlit: (state, action: PayloadAction<boolean>) => {
       state.endgame.spotlit = action.payload;
     },
-    setTrapSucceed: (state, action: PayloadAction<boolean>) => {
-      state.endgame.trap.succeeded = action.payload;
+    setTrapSuccessed: (state, action: PayloadAction<boolean>) => {
+      state.endgame.trap.successed = action.payload;
     },
     setTrapTried: (state, action: PayloadAction<boolean>) => {
       state.endgame.trap.tried = action.payload;
@@ -145,6 +145,12 @@ export const matchDataSlice = createSlice({
       state.comments[action.payload.name as keyof CommentsState] =
         action.payload.input;
     },
+    setFouls: (state, action: PayloadAction<number>) => {
+      state.fouls.fouls = action.payload;
+    },
+    setTechFouls: (state, action: PayloadAction<number>) => {
+      state.fouls.techFouls = action.payload;
+    }
   },
 });
 
@@ -168,9 +174,11 @@ export const {
   setTeleopAmpFail,
   setStage,
   setSpotlit,
-  setTrapSucceed,
+  setTrapSuccessed,
   setTrapTried,
   setComments,
+  setFouls,
+  setTechFouls
 } = matchDataSlice.actions;
 
 export default matchDataSlice.reducer;

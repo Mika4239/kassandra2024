@@ -20,6 +20,27 @@ const useStyles = makeStyles()({
     extra: {
         margin: '20px',
         padding: '15px 20px'
+    },
+    countButtons: {
+        display: 'flex'
+    },
+    successButton: {
+        margin: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        backgroundColor: '#adebad',
+        borderRadius: '30px',
+        padding: '10px'
+    },
+    failButton: {
+        margin: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        backgroundColor: '#ffb3b3',
+        borderRadius: '30px',
+        padding: '10px'
     }
 });
 

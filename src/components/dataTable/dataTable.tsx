@@ -27,6 +27,7 @@ const MAIN_TITLES = [
   "endgame",
   "",
   "",
+  "",
   "comments",
   "",
   ""
@@ -51,9 +52,12 @@ const SUB_TITLES = [
   "stage",
   "spotlit",
   "trap",
+  "",
   "defense",
   "penalties",
-  "other"
+  "other",
+  "fouls",
+  "techFouls"
 ];
 
 const GP_TITLES = [
@@ -73,7 +77,8 @@ const GP_TITLES = [
   "",
   "",
   "",
-  "",
+  "successed",
+  "tried",
   "",
   "",
   "",
@@ -126,13 +131,19 @@ const DataTable: React.FC<DataTableProps> = (props) => {
             "," +
             row.endgame.spotlit +
             "," +
-            row.endgame.trap +
+            row.endgame.trap.successed +
+            "," +
+            row.endgame.trap.tried +
             "," +
             row.comments.defense +
             "," + 
             row.comments.penalties +
             "," +
             row.comments.other +
+            "," +
+            row.fouls.fouls +
+            "," +
+            row.fouls.techFouls +
             ","
         )
         .join("\n");
@@ -179,10 +190,13 @@ const DataTable: React.FC<DataTableProps> = (props) => {
                 <TableCell>{row.teleop.shootingPositions.join(', ')}</TableCell>
                 <TableCell>{row.endgame.stage}</TableCell>
                 <TableCell>{String(row.endgame.spotlit)}</TableCell>
-                <TableCell>{String(row.endgame.trap)}</TableCell>
+                <TableCell>{String(row.endgame.trap.successed)}</TableCell>
+                <TableCell>{String(row.endgame.trap.tried)}</TableCell>
                 <TableCell>{row.comments.defense}</TableCell>
                 <TableCell>{row.comments.penalties}</TableCell>
                 <TableCell>{row.comments.other}</TableCell>
+                <TableCell>{row.fouls ? row.fouls.fouls : "N/A"}</TableCell>
+                <TableCell>{row.fouls ? row.fouls.techFouls : "N/A" }</TableCell>
               </TableRow>
             ))}
           </TableBody>
