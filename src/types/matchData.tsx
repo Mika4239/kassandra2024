@@ -30,8 +30,8 @@ interface MatchData {
         stage: string;
         spotlit: boolean;
         trap: {
-            successed: boolean;
             tried: boolean;
+            succeeded: boolean
         };
     };
     comments: {

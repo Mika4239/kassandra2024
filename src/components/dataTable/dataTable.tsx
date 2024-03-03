@@ -131,7 +131,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
             "," +
             row.endgame.spotlit +
             "," +
-            row.endgame.trap.successed +
+            row.endgame.trap.succeeded +
             "," +
             row.endgame.trap.tried +
             "," +
@@ -145,7 +145,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
             "," +
             row.fouls.techFouls +
             ","
-        )
+        ) 
         .join("\n");
 
     window.open(encodeURI("data:text/csv;charset=utf-8," + csv));
@@ -190,7 +190,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
                 <TableCell>{row.teleop.shootingPositions.join(', ')}</TableCell>
                 <TableCell>{row.endgame.stage}</TableCell>
                 <TableCell>{String(row.endgame.spotlit)}</TableCell>
-                <TableCell>{String(row.endgame.trap.successed)}</TableCell>
+                <TableCell>{String(row.endgame.trap.succeeded)}</TableCell>
                 <TableCell>{String(row.endgame.trap.tried)}</TableCell>
                 <TableCell>{row.comments.defense}</TableCell>
                 <TableCell>{row.comments.penalties}</TableCell>
