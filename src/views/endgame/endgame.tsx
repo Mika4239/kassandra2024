@@ -6,7 +6,7 @@ import Radio from "@mui/joy/Radio/Radio";
 import NavigationButtons from "../../components/navigationButtons/navigationButtons";
 import RadioGroup from "@mui/joy/RadioGroup/RadioGroup";
 import Checkbox from "@mui/joy/Checkbox/Checkbox";
-import { FormControl, breadcrumbsClasses } from "@mui/material";
+import { FormControl } from "@mui/material";
 import { useAppSelector } from "../../redux/hooks";
 import { useDispatch } from "react-redux";
 import { setSpotlit, setStage, setFouls, setTechFouls, setTrapSuccessed, setTrapTried } from "../../redux/matchDataSlice";
@@ -22,13 +22,15 @@ const FOUL_TITLE = "Fouls";
 const TECH_FOUL_TITLE = "Tech Fouls";
 
 const STAGE_OPTIONS = ["NONE", "PARK", "ONSTAGE", "HARMONY"];
-const EXTRA_OPTIONS = ["SPOTLIT"];
+const EXTRA_OPTIONS = ["SPOTLIT", "TRAP TRIED", "TRAP SUCCESS"];
 
 const Endgame: React.FC = () => {
   const { classes } = useStyles();
 
   const stage = useAppSelector((state) => state.matchData.endgame.stage);
   const spotlit = useAppSelector((state) => state.matchData.endgame.spotlit);
+  const trapTried = useAppSelector((state) => state.matchData.endgame.trap.tried)
+  const trapSucceed = useAppSelector((state) => state.matchData.endgame.trap.succeeded);
   const foulsCommited = useAppSelector((state) => state.matchData.fouls.fouls);
   const techFoulCommited = useAppSelector((state) => state.matchData.fouls.techFouls);
 
@@ -64,11 +66,16 @@ const Endgame: React.FC = () => {
               disableIcon
               variant="solid"
               label={option}
-              onChange={(event) =>
-                option === "SPOTLIT"
-                  && dispatch(setSpotlit(event.target.checked))
-              }
-              checked={option === "SPOTLIT" ? spotlit : false}
+              onChange={(event) => {
+                if (option === "SPOTLIT") {
+                  dispatch(setSpotlit(event.target.checked));
+                } else if (option === "TRAP TRIED") {
+                  dispatch(setTrapTried(event.target.checked));
+                } else if (option === "TRAP SUCCESS") {
+                  dispatch(setTrapSuccessed(event.target.checked));
+                }
+              }}
+              checked={option === "SPOTLIT" ? spotlit : option === "TRAP TRIED" ? trapTried : option === "TRAP SUCCESS" ? trapSucceed : false}
             />
           ))}
         </div>

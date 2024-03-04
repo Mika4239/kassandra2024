@@ -12,8 +12,6 @@ import { TabList, Tab, Tabs } from "@mui/joy";
 import { getUsersByTeam } from "../../graphql/userQueries";
 import QrReader from "../../components/qrReader/qrReader";
 import { TextField } from "@mui/material";
-import AddMatchToSheets from "../../components/sheetsSync/sheetsSync";
-
 const DATA_TITLE = "Data"; 
 
 const OPTIONS = ["my", "team", "all"];
