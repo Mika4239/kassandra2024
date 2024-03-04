@@ -37,7 +37,7 @@ const initialState: MatchData = {
     stage: "NONE",
     spotlit: false,
     trap: {
-      succeeded: false,
+      successed: false,
       tried: false
     },
   },
@@ -136,7 +136,7 @@ export const matchDataSlice = createSlice({
       state.endgame.spotlit = action.payload;
     },
     setTrapSuccessed: (state, action: PayloadAction<boolean>) => {
-      state.endgame.trap.succeeded = action.payload;
+      state.endgame.trap.successed = action.payload;
     },
     setTrapTried: (state, action: PayloadAction<boolean>) => {
       state.endgame.trap.tried = action.payload;
