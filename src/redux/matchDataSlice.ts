@@ -70,7 +70,8 @@ export const matchDataSlice = createSlice({
       (state.autonomous = initialState.autonomous),
         (state.teleop = initialState.teleop),
         (state.endgame = initialState.endgame),
-        (state.comments = initialState.comments);
+        (state.comments = initialState.comments),
+        (state.fouls = initialState.fouls);
     },
     setMatchDataUser: (state, action: PayloadAction<string>) => {
       state.user = action.payload;
