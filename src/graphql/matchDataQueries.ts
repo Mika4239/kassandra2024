@@ -41,7 +41,7 @@ export const getAllMatchData = `
                 stage
                 spotlit
                 trap{
-                    successed
+                    succeeded
                     tried
                 }
             }
