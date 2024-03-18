@@ -22,7 +22,13 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = (props) => {
   const matchData = useAppSelector((state) => state.matchData);
   const dispatch = useDispatch();
 
+  const getMatchNumber = (match: string) => {
+    const numbers = match.match(/\d+$/);
+    return numbers ? numbers[0] : 'N/A';
+  }
+
   const submitMatch = async () => {
+    matchData.match = getMatchNumber(matchData.match);
     await executeQuery(createMatchData, {'input': matchData});
     dispatch(resetMatchData());
   };
