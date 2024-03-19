@@ -87,6 +87,9 @@ export const matchDataSlice = createSlice({
       state[action.payload.name as keyof SelectMatchState] =
         action.payload.input;
     },
+    setMatch: (state, action: PayloadAction<string>) => {
+      state.match = action.payload;
+    },
     setLeave: (state, action: PayloadAction<boolean>) => {
       state.autonomous.leave = action.payload;
     },
@@ -160,6 +163,7 @@ export const {
   resetMatchData,
   setMatchDataUser,
   setMatchTeam,
+  setMatch,
   setLeave,
   addRingCollected,
   removeRingcollected,
