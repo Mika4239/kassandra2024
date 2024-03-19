@@ -40,8 +40,8 @@ const Data: React.FC = () => {
           response.listMatchData.items.map(matchData => ({
             ...matchData,
             fouls: {
-              fouls: matchData.fouls.fouls != null ? matchData.fouls.fouls : 0,
-              techFouls: matchData.fouls.techFouls != null ? matchData.fouls.techFouls : 0
+              fouls: matchData.fouls ? matchData.fouls.fouls : 0,
+              techFouls: matchData.fouls ? matchData.fouls.techFouls : 0
             }
           })).filter(matchData => matchData.user === user.id)
         );

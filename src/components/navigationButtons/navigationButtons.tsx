@@ -2,10 +2,11 @@ import Button from "@mui/material/Button/Button";
 import { NavLink } from "react-router-dom";
 import useStyles from "./navigationButtonsStyles";
 import { useDispatch } from "react-redux";
-import { resetMatchData } from "../../redux/matchDataSlice";
+import { resetMatchData, setMatchTeam } from "../../redux/matchDataSlice";
 import executeQuery from "../../graphql/graphqlClient";
 import { useAppSelector } from "../../redux/hooks";
 import { createMatchData } from "../../graphql/matchDataQueries";
+import { useEffect } from "react";
 
 const BACK = "Back";
 const NEXT = "Next";
@@ -22,14 +23,20 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = (props) => {
   const matchData = useAppSelector((state) => state.matchData);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log(getMatchNumber(matchData.match));
+  });
+
   const getMatchNumber = (match: string) => {
     const numbers = match.match(/\d+$/);
     return numbers ? numbers[0] : match;
-  }
+  };
 
   const submitMatch = async () => {
-    matchData.match = getMatchNumber(matchData.match);
-    await executeQuery(createMatchData, {'input': matchData});
+    setMatchTeam({ name: "match", input: getMatchNumber(matchData.match) });
+    executeQuery(createMatchData, { input: matchData })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
     dispatch(resetMatchData());
   };
 
@@ -44,7 +51,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = (props) => {
         <Button
           variant="contained"
           className={classes.navigationButton}
-          onClick={async () => isSubmit && await submitMatch()}
+          onClick={async () => isSubmit && (await submitMatch())}
         >
           {isSubmit ? SUBMIT : NEXT}
         </Button>
