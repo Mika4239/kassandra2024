@@ -24,7 +24,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = (props) => {
 
   const getMatchNumber = (match: string) => {
     const numbers = match.match(/\d+$/);
-    return numbers ? numbers[0] : 'N/A';
+    return numbers ? numbers[0] : match;
   }
 
   const submitMatch = async () => {
